@@ -20,61 +20,25 @@ const sf::Color Colors[9] = {
 	Cream
 };
 
-class A {
+SwatchColor swatchColor;
 
-protected:
-
-	virtual void onFun() {
-		std::cout << "On A" << std::endl;
-	}
-
-public:
-	virtual void fun() {
-		onFun();
-		//std::cout << 'A' << std::endl;
-	}
-};
-
-class B: public A {
-
-protected:
-
-	virtual void onFun() {
-		std::cout << "On B" << std::endl;
-	}
-
-public:
-	
-};
-
-
-int main() {
-
-	A b = B();
-	b.fun();
-
-	B B;
-	A* a = &B;
-	a->fun();
-
-	std::cout << "Hello World" << std::endl;
-
-	SwatchColor swatchColor;
-
-	// Background
-	sf::RectangleShape background;
-	background.setFillColor(sf::Color(211, 211, 211));
-	background.setSize(sf::Vector2f(800, 600));
-
-	// SceneTree
-	GameObject root;
-	
-	// Buttons
+Grid* createButtonOptions() {
 	Grid* buttons = Grid::create(sf::Vector2f(8, 75), sf::Vector2f(50, 50), 8, 2, 4, 4);
 	for (int i = 0; i < 16; i++) {
 		buttons->addChild(Button::create(sf::Color::White, 0, 0, 0, 0));
 	}
+	return buttons;
+}
 
+Grid* createDrawingGrid() {
+	Grid* pixels = Grid::create(sf::Vector2f(190, 75), sf::Vector2f(50, 50), 8, 8, 0, 0);
+	for (int i = 0; i < 64; i++) {
+		pixels->addChild(Button::create(sf::Color::White, 0, 0, 0, 0));
+	}
+	return pixels;
+}
+
+Grid* createColorPalette() {
 	Grid* swatches = Grid::create(sf::Vector2f(632, 350), sf::Vector2f(50, 50), 3, 3, 4, 4);
 	for (int i = 0; i < 9; i++) {
 		Button* button = Button::create(Colors[i], 0, 0, 0, 0);
@@ -82,12 +46,22 @@ int main() {
 		button->setCallback(callback);
 		swatches->addChild(button);
 	}
+	return swatches;
+}
 
-	Grid* pixels = Grid::create(sf::Vector2f(190, 75), sf::Vector2f(50, 50), 8, 8, 0, 0);
-	for (int i = 0; i < 64; i++) {
-		pixels->addChild(Button::create(sf::Color::White, 0, 0, 0, 0));
-	}
+int main() {
+	std::cout << "Hello World" << std::endl;
+	// Background
+	sf::RectangleShape background;
+	background.setFillColor(sf::Color(211, 211, 211));
+	background.setSize(sf::Vector2f(800, 600));
 
+	// SceneTree
+	GameObject root;
+	Grid* buttons = createButtonOptions();
+	Grid* pixels = createDrawingGrid();
+	Grid* swatches = createColorPalette();
+	
 	root.addChild(buttons);
 	root.addChild(pixels);
 	root.addChild(swatches);
