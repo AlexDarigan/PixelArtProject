@@ -7,7 +7,7 @@ class Button : public GameObject, public Color {
 	static Button buttons[100];
 	static int count;
 
-	Callback* callback;
+	Callback* callback = nullptr;
 	sf::RectangleShape shape;
 
 	bool isPressed(sf::Event& event) {
@@ -35,10 +35,11 @@ protected:
 		if (isPressed(event)) { 
 			std::cout << "Left Clicked" << std::endl;
 			callback->call();
+			if (callback != nullptr) { callback->call(); }
 		}
 		else if (isMouseDragged(event)) {
 			std::cout << "Mouse Dragged" << std::endl;
-			callback->call();
+			if (callback != nullptr) { callback->call(); }
 		}
 	}
 

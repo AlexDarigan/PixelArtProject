@@ -6,13 +6,14 @@ class Callback {
 
 protected:
 
-	virtual void onCalled() {
-		std::cout << "Calling Base Callback" << std::endl;
-	}
+	virtual void onCalled() { std::cout << "Calling Base Callback" << std::endl; }
 
 public:
 
-	void call() { onCalled(); }
+	void call() { 
+		if (this == nullptr) { return; }
+		onCalled(); 
+	}
 };
 
 class ChangeColor : public Callback {
