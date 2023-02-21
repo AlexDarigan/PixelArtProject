@@ -12,9 +12,7 @@ protected:
 
 public:
 
-	void call() {
-		this->onCalled();
-	}
+	void call() { onCalled(); }
 };
 
 class ChangeColor : public Callback {
@@ -26,28 +24,23 @@ class ChangeColor : public Callback {
 protected:
 
 	virtual void onCalled() {
-		std::cout << "Calling Derived Callback" << std::endl;
+		std::cout << "Setting Color" << std::endl;
 		swatchColor->setColor(color);
-		std::cout << "set color of swatch";
 	}
 
 public:
-	ChangeColor() {}
-
-	ChangeColor(SwatchColor* swatchColor, sf::Color color) {
-		this->swatchColor = swatchColor;
-		this->color = color;
-	}
-
-	static ChangeColor* getChangeColorCallback(SwatchColor* swatchColor, sf::Color color);
+	static ChangeColor* create(SwatchColor* swatchColor, sf::Color color);
 };
 
-ChangeColor* ChangeColor::getChangeColorCallback(SwatchColor* swatchColor, sf::Color color) {
-	ChangeColor changeColorCallback(swatchColor, color);
+
+int ChangeColor::count = 0;
+ChangeColor ChangeColor::changeColors[100] = {};
+ChangeColor* ChangeColor::create(SwatchColor* swatchColor, sf::Color color) {
+	ChangeColor changeColorCallback;
+	changeColorCallback.swatchColor = swatchColor;
+	changeColorCallback.color = color;
 	changeColors[count] = changeColorCallback;
 	count++;
 	return (ChangeColor*)&changeColors[count - 1];
 }
 
-int ChangeColor::count = 0;
-ChangeColor ChangeColor::changeColors[100] = {};

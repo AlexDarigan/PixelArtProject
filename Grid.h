@@ -35,29 +35,23 @@ protected:
 
 public:
 
-	Grid() {}
-
-	static Grid* getGrid(sf::Vector2f position, sf::Vector2f cellSize, int rows, int cols, int h_gap = 0, int v_gap = 0);
-
-	Grid(sf::Vector2f position, sf::Vector2f cellSize, int rows, int cols, int h_gap, int v_gap) {
-		this->position = position;
-		this->cellSize = cellSize;
-		this->rows = rows;
-		this->cols = cols;
-		this->h_gap = h_gap;
-		this->v_gap = v_gap;
-	}
-
+	static Grid* create(sf::Vector2f position, sf::Vector2f cellSize, int rows, int cols, int h_gap = 0, int v_gap = 0);
 	virtual void setPosition(sf::Vector2f position) { this->position = position; }
 	virtual sf::Vector2f getPosition() { return position; }
 
 };
 
-Grid* Grid::getGrid(sf::Vector2f position, sf::Vector2f cellSize, int rows, int cols, int h_gap, int v_gap) {
-	Grid grid(position, cellSize, rows, cols, h_gap, v_gap);
+int Grid::count = 0;
+Grid Grid::grids[100] = {};
+Grid* Grid::create(sf::Vector2f position, sf::Vector2f cellSize, int rows, int cols, int h_gap, int v_gap) {
+	Grid grid;
+	grid.position = position;
+	grid.cellSize = cellSize;
+	grid.rows = rows;
+	grid.cols = cols;
+	grid.h_gap = h_gap;
+	grid.v_gap = v_gap;
 	grids[count] = grid;
 	count++;
 	return &grids[count - 1];
 }
-int Grid::count = 0;
-Grid Grid::grids[100] = {};

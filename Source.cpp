@@ -66,31 +66,26 @@ int main() {
 	background.setFillColor(sf::Color(211, 211, 211));
 	background.setSize(sf::Vector2f(800, 600));
 
-	// Factories
-	//GridFactory gridFactory;
-	//CallbackFactory callbackFactory;
-
 	// SceneTree
 	GameObject root;
 	
 	// Buttons
-	Grid* buttons = Grid::getGrid(sf::Vector2f(8, 75), sf::Vector2f(50, 50), 8, 2, 4, 4);
+	Grid* buttons = Grid::create(sf::Vector2f(8, 75), sf::Vector2f(50, 50), 8, 2, 4, 4);
 	for (int i = 0; i < 16; i++) {
-		buttons->addChild(Button::getButton(sf::Color::White, 0, 0, 0, 0));
+		buttons->addChild(Button::create(sf::Color::White, 0, 0, 0, 0));
 	}
 
-	Grid* swatches = Grid::getGrid(sf::Vector2f(642, 350), sf::Vector2f(50, 50), 3, 3, 4, 4);
+	Grid* swatches = Grid::create(sf::Vector2f(632, 350), sf::Vector2f(50, 50), 3, 3, 4, 4);
 	for (int i = 0; i < 9; i++) {
-		Button* button = Button::getButton(Colors[i], 0, 0, 0, 0);
-		ChangeColor* callback = ChangeColor::getChangeColorCallback(&swatchColor, Colors[i]);
-		callback->call();
+		Button* button = Button::create(Colors[i], 0, 0, 0, 0);
+		ChangeColor* callback = ChangeColor::create(&swatchColor, Colors[i]);
 		button->setCallback(callback);
 		swatches->addChild(button);
 	}
 
-	Grid* pixels = Grid::getGrid(sf::Vector2f(190, 75), sf::Vector2f(50, 50), 8, 8, 0, 0);
+	Grid* pixels = Grid::create(sf::Vector2f(190, 75), sf::Vector2f(50, 50), 8, 8, 0, 0);
 	for (int i = 0; i < 64; i++) {
-		pixels->addChild(Button::getButton(sf::Color::White, 0, 0, 0, 0));
+		pixels->addChild(Button::create(sf::Color::White, 0, 0, 0, 0));
 	}
 
 	root.addChild(buttons);
