@@ -1,6 +1,6 @@
 #pragma once
 #include "SFML/Graphics.hpp"
-#include "SwatchColor.h"
+#include "Color.h"
 
 class Callback {
 
@@ -18,7 +18,7 @@ public:
 class ChangeColor : public Callback {
 	static ChangeColor changeColors[100];
 	static int count;
-	SwatchColor* swatchColor;
+	Color* swatchColor;
 	sf::Color color;
 
 protected:
@@ -29,18 +29,46 @@ protected:
 	}
 
 public:
-	static ChangeColor* create(SwatchColor* swatchColor, sf::Color color);
+	static ChangeColor* create(Color* swatchColor, sf::Color color);
 };
 
 
 int ChangeColor::count = 0;
 ChangeColor ChangeColor::changeColors[100] = {};
-ChangeColor* ChangeColor::create(SwatchColor* swatchColor, sf::Color color) {
+ChangeColor* ChangeColor::create(Color* swatchColor, sf::Color color) {
 	ChangeColor changeColorCallback;
 	changeColorCallback.swatchColor = swatchColor;
 	changeColorCallback.color = color;
 	changeColors[count] = changeColorCallback;
 	count++;
 	return (ChangeColor*)&changeColors[count - 1];
+}
+
+class PaintTarget : public Callback {
+	static PaintTarget paintTargets[100];
+	static int count;
+	Color* swatchColor;
+	Color* target;
+
+protected:
+
+	virtual void onCalled() {
+		target->setColor(swatchColor->getColor());
+	}
+
+public:
+	static PaintTarget* create(Color* swatchColor, Color* target);
+};
+
+
+int PaintTarget::count = 0;
+PaintTarget PaintTarget::paintTargets[100] = {};
+PaintTarget* PaintTarget::create(Color* swatchColor, Color* target) {
+	PaintTarget paintTarget;
+	paintTarget.swatchColor = swatchColor;
+	paintTarget.target = target;
+	paintTargets[count] = paintTarget;
+	count++;
+	return (PaintTarget*)&paintTargets[count - 1];
 }
 

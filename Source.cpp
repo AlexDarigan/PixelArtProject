@@ -6,6 +6,7 @@
 #include "Button.h"
 #include "Grid.h"
 #include "Callback.h"
+#include "Color.h"
 
 const sf::Color Cream(244, 244, 166);
 const sf::Color Colors[9] = {
@@ -20,7 +21,7 @@ const sf::Color Colors[9] = {
 	Cream
 };
 
-SwatchColor swatchColor;
+Color swatchColor;
 
 Grid* createButtonOptions() {
 	Grid* buttons = Grid::create(sf::Vector2f(8, 75), sf::Vector2f(50, 50), 8, 2, 4, 4);
@@ -33,7 +34,10 @@ Grid* createButtonOptions() {
 Grid* createDrawingGrid() {
 	Grid* pixels = Grid::create(sf::Vector2f(190, 75), sf::Vector2f(50, 50), 8, 8, 0, 0);
 	for (int i = 0; i < 64; i++) {
-		pixels->addChild(Button::create(sf::Color::White, 0, 0, 0, 0));
+		Button* button = Button::create(sf::Color::White, 0, 0, 0, 0);
+		PaintTarget* paintTarget = PaintTarget::create(&swatchColor, button);
+		button->setCallback(paintTarget);
+		pixels->addChild(button);
 	}
 	return pixels;
 }

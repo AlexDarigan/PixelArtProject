@@ -2,7 +2,7 @@
 #include "GameObject.h"
 #include "Callback.h"
 
-class Button : public GameObject {
+class Button : public GameObject, public Color {
 	static Button buttons[100];
 	static int count;
 
@@ -39,6 +39,8 @@ public:
 	virtual void setPosition(sf::Vector2f position) { shape.setPosition(position); }
 	virtual sf::Vector2f getSize() { return shape.getSize(); }
 	virtual sf::Vector2f getPosition() { return shape.getPosition(); }
+	virtual void setColor(sf::Color color) { shape.setFillColor(color); }
+	virtual sf::Color getColor() { return shape.getFillColor(); }
 };
 
 int Button::count = 0;
