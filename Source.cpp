@@ -3,8 +3,8 @@
 #include "SFML/Graphics.hpp"
 #include "SFML.h"
 #include "GameObject.h"
-#include "ButtonFactory.h"
-#include "GridFactory.h"
+#include "Button.h"
+#include "Grid.h"
 #include "Callback.h"
 
 const sf::Color Cream(244, 244, 166);
@@ -67,31 +67,30 @@ int main() {
 	background.setSize(sf::Vector2f(800, 600));
 
 	// Factories
-	ButtonFactory buttonFactory;
-	GridFactory gridFactory;
+	//GridFactory gridFactory;
 	//CallbackFactory callbackFactory;
 
 	// SceneTree
 	GameObject root;
 	
 	// Buttons
-	Grid* buttons = gridFactory.getGrid(sf::Vector2f(8, 75), sf::Vector2f(50, 50), 8, 2, 4, 4);
+	Grid* buttons = Grid::getGrid(sf::Vector2f(8, 75), sf::Vector2f(50, 50), 8, 2, 4, 4);
 	for (int i = 0; i < 16; i++) {
-		buttons->addChild(buttonFactory.getButton(sf::Color::White, 0, 0, 0, 0));
+		buttons->addChild(Button::getButton(sf::Color::White, 0, 0, 0, 0));
 	}
 
-	Grid* swatches = gridFactory.getGrid(sf::Vector2f(642, 350), sf::Vector2f(50, 50), 3, 3, 4, 4);
+	Grid* swatches = Grid::getGrid(sf::Vector2f(642, 350), sf::Vector2f(50, 50), 3, 3, 4, 4);
 	for (int i = 0; i < 9; i++) {
-		Button* button = buttonFactory.getButton(Colors[i], 0, 0, 0, 0);
+		Button* button = Button::getButton(Colors[i], 0, 0, 0, 0);
 		ChangeColor* callback = ChangeColor::getChangeColorCallback(&swatchColor, Colors[i]);
 		callback->call();
 		button->setCallback(callback);
 		swatches->addChild(button);
 	}
 
-	Grid* pixels = gridFactory.getGrid(sf::Vector2f(190, 75), sf::Vector2f(50, 50), 8, 8, 0, 0);
+	Grid* pixels = Grid::getGrid(sf::Vector2f(190, 75), sf::Vector2f(50, 50), 8, 8, 0, 0);
 	for (int i = 0; i < 64; i++) {
-		pixels->addChild(buttonFactory.getButton(sf::Color::White, 0, 0, 0, 0));
+		pixels->addChild(Button::getButton(sf::Color::White, 0, 0, 0, 0));
 	}
 
 	root.addChild(buttons);

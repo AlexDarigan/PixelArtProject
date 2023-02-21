@@ -134,11 +134,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Button.h" />
-    <ClInclude Include="ButtonFactory.h" />
     <ClInclude Include="Callback.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Grid.h" />
-    <ClInclude Include="GridFactory.h" />
     <ClInclude Include="SFML.h" />
     <ClInclude Include="SwatchColor.h" />
   </ItemGroup>

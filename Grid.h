@@ -2,6 +2,8 @@
 #include "GameObject.h"
 
 class Grid : public GameObject {
+	static Grid grids[100];
+	static int count;
 
 	int rows = 0;
 	int cols = 0;
@@ -35,7 +37,9 @@ public:
 
 	Grid() {}
 
-	Grid(sf::Vector2f position, sf::Vector2f cellSize, int rows, int cols, int h_gap = 0, int v_gap = 0) {
+	static Grid* getGrid(sf::Vector2f position, sf::Vector2f cellSize, int rows, int cols, int h_gap = 0, int v_gap = 0);
+
+	Grid(sf::Vector2f position, sf::Vector2f cellSize, int rows, int cols, int h_gap, int v_gap) {
 		this->position = position;
 		this->cellSize = cellSize;
 		this->rows = rows;
@@ -48,3 +52,12 @@ public:
 	virtual sf::Vector2f getPosition() { return position; }
 
 };
+
+Grid* Grid::getGrid(sf::Vector2f position, sf::Vector2f cellSize, int rows, int cols, int h_gap, int v_gap) {
+	Grid grid(position, cellSize, rows, cols, h_gap, v_gap);
+	grids[count] = grid;
+	count++;
+	return &grids[count - 1];
+}
+int Grid::count = 0;
+Grid Grid::grids[100] = {};

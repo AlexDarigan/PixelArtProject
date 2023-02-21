@@ -3,6 +3,8 @@
 #include "Callback.h"
 
 class Button : public GameObject {
+	static Button buttons[100];
+	static int count;
 
 	Callback* callback;
 	sf::RectangleShape shape;
@@ -30,9 +32,12 @@ protected:
 	}
 
 public:
+
+	static Button* getButton(sf::Color color, float x = 0, float y = 0, float width = 50, float height = 50);
+
 	Button() {}
 
-	Button(sf::Color color, float x = 0, float y = 0, float width = 50, float height = 50) {
+	Button(sf::Color color, float x, float y, float width, float height) {
 		shape.setFillColor(color);
 		setPosition(sf::Vector2f(x, y));
 		setSize(sf::Vector2f(width, height));
@@ -48,3 +53,13 @@ public:
 	virtual sf::Vector2f getSize() { return shape.getSize(); }
 	virtual sf::Vector2f getPosition() { return shape.getPosition(); }
 };
+
+Button* Button::getButton(sf::Color color, float x, float y, float width, float height) {
+	Button button(color, x, y, width, height);
+	buttons[count] = button;
+	count++;
+	return &buttons[count - 1];
+}
+
+int Button::count = 0;
+Button Button::buttons[100] = {};

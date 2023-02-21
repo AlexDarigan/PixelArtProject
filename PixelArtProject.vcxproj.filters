@@ -29,13 +29,7 @@
     <ClInclude Include="Button.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ButtonFactory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Grid.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GridFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Callback.h">
