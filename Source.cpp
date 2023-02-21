@@ -5,6 +5,7 @@
 #include "GameObject.h"
 #include "ButtonFactory.h"
 #include "GridFactory.h"
+#include "Callback.h"
 
 const sf::Color Cream(244, 244, 166);
 const sf::Color Colors[9] = {
@@ -19,19 +20,56 @@ const sf::Color Colors[9] = {
 	Cream
 };
 
-const sf::Color Grey(128, 128, 128, 255);
+class A {
+
+protected:
+
+	virtual void onFun() {
+		std::cout << "On A" << std::endl;
+	}
+
+public:
+	virtual void fun() {
+		onFun();
+		//std::cout << 'A' << std::endl;
+	}
+};
+
+class B: public A {
+
+protected:
+
+	virtual void onFun() {
+		std::cout << "On B" << std::endl;
+	}
+
+public:
+	
+};
+
 
 int main() {
+
+	A b = B();
+	b.fun();
+
+	B B;
+	A* a = &B;
+	a->fun();
+
 	std::cout << "Hello World" << std::endl;
+
+	SwatchColor swatchColor;
 
 	// Background
 	sf::RectangleShape background;
-	background.setFillColor(Grey);
+	background.setFillColor(sf::Color(211, 211, 211));
 	background.setSize(sf::Vector2f(800, 600));
 
 	// Factories
 	ButtonFactory buttonFactory;
 	GridFactory gridFactory;
+	//CallbackFactory callbackFactory;
 
 	// SceneTree
 	GameObject root;
@@ -44,7 +82,11 @@ int main() {
 
 	Grid* swatches = gridFactory.getGrid(sf::Vector2f(642, 350), sf::Vector2f(50, 50), 3, 3, 4, 4);
 	for (int i = 0; i < 9; i++) {
-		swatches->addChild(buttonFactory.getButton(Colors[i], 0, 0, 0, 0));
+		Button* button = buttonFactory.getButton(Colors[i], 0, 0, 0, 0);
+		ChangeColor* callback = ChangeColor::getChangeColorCallback(&swatchColor, Colors[i]);
+		callback->call();
+		button->setCallback(callback);
+		swatches->addChild(button);
 	}
 
 	Grid* pixels = gridFactory.getGrid(sf::Vector2f(190, 75), sf::Vector2f(50, 50), 8, 8, 0, 0);

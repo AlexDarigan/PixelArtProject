@@ -1,18 +1,20 @@
 #pragma once
 #include "GameObject.h"
-
+#include "Callback.h"
 
 class Button : public GameObject {
 
+	Callback* callback;
 	sf::RectangleShape shape;
 
-	
 	bool isPressed(sf::Event& event) {
 		return
 			event.type == sf::Event::MouseButtonPressed &&
 			event.mouseButton.button == sf::Mouse::Left &&
 			shape.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y);
 	}
+
+	
 
 protected:
 
@@ -21,7 +23,10 @@ protected:
 	}
 
 	void onEvent(sf::Event& event) {
-		if (isPressed(event)) { std::cout << "Left Clicked" << std::endl; }
+		if (isPressed(event)) { 
+			std::cout << "Left Clicked" << std::endl;
+			callback->call();
+		}
 	}
 
 public:
@@ -37,6 +42,7 @@ public:
 		return shape.getGlobalBounds().contains(point);
 	}
 
+	void setCallback(Callback *callback) { this->callback = callback; }
 	virtual void setSize(sf::Vector2f size) { shape.setSize(size); }
 	virtual void setPosition(sf::Vector2f position) { shape.setPosition(position); }
 	virtual sf::Vector2f getSize() { return shape.getSize(); }

@@ -38,5 +38,11 @@
     <ClInclude Include="GridFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Callback.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SwatchColor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
