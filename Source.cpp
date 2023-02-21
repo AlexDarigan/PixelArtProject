@@ -69,11 +69,19 @@ int main() {
 	root->addChild(pixels);
 	root->addChild(swatches);
 
+	sf::Time timePerFrame = sf::seconds(1.0f / 60.0f);
+	sf::Time delta = sf::Time::Zero;
+	sf::Clock clock;
+	clock.restart();
+
 	while (app->isOpen()) {
 		sf::Event event;
 		while (app->poll(event)) {
 			app->process(event);
 		}
-		app->redraw();
+		delta += clock.restart();
+		if (delta > timePerFrame) {
+			app->redraw();
+		}
 	}
 }
