@@ -4,6 +4,7 @@
 
 class GameObject : public sf::Drawable {
 
+
 	void draw(sf::RenderTarget& window, sf::RenderStates states) const {
 		onDraw(window, states);
 		for (const auto& child : children) { window.draw(*child); }

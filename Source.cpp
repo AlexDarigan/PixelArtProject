@@ -6,8 +6,28 @@
 #include "ButtonFactory.h"
 #include "GridFactory.h"
 
+const sf::Color Cream(244, 244, 166);
+const sf::Color Colors[9] = {
+	sf::Color::Red,
+	sf::Color::Blue,
+	sf::Color::Green,
+	sf::Color::Black,
+	sf::Color::Cyan,
+	sf::Color::Magenta,
+	sf::Color::Yellow,
+	sf::Color::White,
+	Cream
+};
+
+const sf::Color Grey(128, 128, 128, 255);
+
 int main() {
 	std::cout << "Hello World" << std::endl;
+
+	// Background
+	sf::RectangleShape background;
+	background.setFillColor(Grey);
+	background.setSize(sf::Vector2f(800, 600));
 
 	// Factories
 	ButtonFactory buttonFactory;
@@ -24,7 +44,7 @@ int main() {
 
 	Grid* swatches = gridFactory.getGrid(sf::Vector2f(642, 350), sf::Vector2f(50, 50), 3, 3, 4, 4);
 	for (int i = 0; i < 9; i++) {
-		swatches->addChild(buttonFactory.getButton(sf::Color::White, 0, 0, 0, 0));
+		swatches->addChild(buttonFactory.getButton(Colors[i], 0, 0, 0, 0));
 	}
 
 	Grid* pixels = gridFactory.getGrid(sf::Vector2f(190, 75), sf::Vector2f(50, 50), 8, 8, 0, 0);
@@ -36,17 +56,6 @@ int main() {
 	root.addChild(pixels);
 	root.addChild(swatches);
 
-	/*Button* button = buttonFactory.getButton(sf::Color::Green, 50, 50, 100, 200);
-	root.addChild(&child);
-	child.addChild(button);
-
-	Grid* grid = gridFactory.getGrid(sf::Vector2f(500, 200), sf::Vector2f(50, 50), 3, 3, 4, 4);
-	for (int i = 0; i < 9; i++) {
-		grid->addChild(buttonFactory.getButton(sf::Color::Blue, 200, 200, 50, 50));
-	}
-
-	button->addChild(grid);*/
-
 	// Window
 	sf::RenderWindow Window(sf::VideoMode(800, 600), "Project");
 	while (Window.isOpen()) {
@@ -57,6 +66,7 @@ int main() {
 		}
 
 		Window.clear();
+		Window.draw(background);
 		Window.draw(root);
 		Window.display();
 	}
