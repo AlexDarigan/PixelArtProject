@@ -4,8 +4,6 @@
 
 class GameObject : public sf::Drawable {
 
-	std::vector<GameObject*> children;
-
 	void draw(sf::RenderTarget& window, sf::RenderStates states) const {
 		onDraw(window, states);
 		for (const auto& child : children) { window.draw(*child); }
@@ -13,9 +11,16 @@ class GameObject : public sf::Drawable {
 
 protected:
 
+	std::vector<GameObject*> children;
+
 	virtual void onDraw(sf::RenderTarget& window, sf::RenderStates states) const {
 		// To be overriden by children objects
 	}
+
+	virtual void onChildAdded(GameObject* child) {
+
+	}
+
 
 public:
 
@@ -23,5 +28,11 @@ public:
 
 	void addChild(GameObject* child) {
 		children.push_back(child);
+		onChildAdded(child);
 	}
+
+	virtual void setSize(sf::Vector2f size) {}
+	virtual void setPosition(sf::Vector2f position) { }
+	virtual sf::Vector2f getSize() { return sf::Vector2f(0, 0); }
+	virtual sf::Vector2f getPosition() { return sf::Vector2f(0, 0); }
 };

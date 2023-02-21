@@ -32,5 +32,11 @@
     <ClInclude Include="ButtonFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Grid.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GridFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
