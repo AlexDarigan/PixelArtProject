@@ -55,17 +55,19 @@ Grid* createColorPalette() {
 
 class App {
 
+	static App instance;
 	sf::RectangleShape Background;
 	sf::RenderWindow Window { sf::VideoMode(800, 600), "Project" };
 	GameObject root;
-
-public:
 
 	App() {
 		Background.setFillColor(sf::Color(211, 211, 211));
 		Background.setSize(sf::Vector2f(800, 600));
 	}
 
+public:
+
+	static App* getInstance();
 	bool isOpen() { return Window.isOpen(); }
 	GameObject* getRoot() { return &root; }
 	bool poll(sf::Event& event) { return Window.pollEvent(event); }
@@ -84,27 +86,19 @@ public:
 	}
 };
 
-/*sf::RenderWindow Window(sf::VideoMode(800, 600), "Project");
-while (Window.isOpen()) {
-	sf::Event event;
-	while (Window.pollEvent(event)) {
-		if (event.type == sf::Event::Closed) { Window.close(); }
-		root.process(event);
-	}
+App App::instance;
+App* App::getInstance() {
+	return &instance;
+}
 
-	Window.clear();
-	Window.draw(background);
-	Window.draw(root);
-	Window.display();
-}*/
 
 int main() {
 	std::cout << "Hello World" << std::endl;
 	
-	App app;
+	App* app = App::getInstance();
 	
 	// SceneTree
-	GameObject* root = app.getRoot();
+	GameObject* root = app->getRoot();
 	Grid* buttons = createButtonOptions();
 	Grid* pixels = createDrawingGrid();
 	Grid* swatches = createColorPalette();
@@ -113,11 +107,11 @@ int main() {
 	root->addChild(pixels);
 	root->addChild(swatches);
 
-	while (app.isOpen()) {
+	while (app->isOpen()) {
 		sf::Event event;
-		while (app.poll(event)) {
-			app.process(event);
+		while (app->poll(event)) {
+			app->process(event);
 		}
-		app.redraw();
+		app->redraw();
 	}
 }
