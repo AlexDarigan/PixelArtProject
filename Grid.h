@@ -17,7 +17,7 @@ class Grid : public GameObject {
 	float getY() { return getPosition().y + (cellSize.y + v_gap) * row; }
 	void updateRowsAndColumns() {
 		col++;
-		if (col >= 3) {
+		if (col >= cols) {
 			row++;
 			col = 0;
 		}
