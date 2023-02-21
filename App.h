@@ -15,15 +15,10 @@ public:
 
 	static App* getInstance();
 	bool isOpen() { return Window.isOpen(); }
+	void close() { Window.close(); }
 	GameObject* getRoot() { return &root; }
 	bool poll(sf::Event& event) { return Window.pollEvent(event); }
-	void process(sf::Event& event) {
-		if (event.type == sf::Event::Closed) {
-			Window.close();
-		}
-		root.process(event);
-	}
-
+	void process(sf::Event& event) { root.process(event); }
 	void redraw() {
 		Window.clear();
 		Window.draw(Background);

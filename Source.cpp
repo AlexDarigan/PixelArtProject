@@ -9,6 +9,13 @@
 #include "Color.h"
 #include "App.h"
 
+// TODO:
+// Create a ToolClass (which can have its own dedicated callbacks?)
+//	e.g PaintTool()
+//  if(selected) PaintTarget.call()?
+// Maybe PaintTarget.call(), if(painttool != selected) { return; }
+// PaintTarget(Tool, Target, Color)
+
 const sf::Color Cream(244, 244, 166);
 const sf::Color Colors[9] = {
 	sf::Color::Red,
@@ -74,9 +81,12 @@ int main() {
 	sf::Clock clock;
 	clock.restart();
 
+	
+
 	while (app->isOpen()) {
 		sf::Event event;
 		while (app->poll(event)) {
+			if (event.type == sf::Event::Closed) { app->close(); }
 			app->process(event);
 		}
 		delta += clock.restart();
