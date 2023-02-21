@@ -15,6 +15,13 @@ class Button : public GameObject, public Color {
 			event.mouseButton.button == sf::Mouse::Left &&
 			shape.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y);
 	}
+
+	bool isMouseDragged(sf::Event& event) {
+		return
+			event.type == sf::Event::MouseMoved &&
+			shape.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y);// &&
+			//sf::Mouse::isButtonPressed(sf::Mouse::Left);
+	}
 	
 
 protected:
@@ -26,6 +33,10 @@ protected:
 	void onEvent(sf::Event& event) {
 		if (isPressed(event)) { 
 			std::cout << "Left Clicked" << std::endl;
+			callback->call();
+		}
+		else if (isMouseDragged(event)) {
+			std::cout << "Mouse Dragged" << std::endl;
 			callback->call();
 		}
 	}
