@@ -21,6 +21,10 @@ protected:
 
 	}
 
+	virtual void onEvent(sf::Event& event) {
+
+	}
+
 
 public:
 
@@ -29,6 +33,11 @@ public:
 	void addChild(GameObject* child) {
 		children.push_back(child);
 		onChildAdded(child);
+	}
+
+	void process(sf::Event &event) {
+		onEvent(event);
+		for (const auto& child : children) { child->process(event); }
 	}
 
 	virtual void setSize(sf::Vector2f size) {}

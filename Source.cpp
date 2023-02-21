@@ -31,10 +31,11 @@ int main() {
 	sf::RenderWindow Window(sf::VideoMode(800, 600), "Project");
 	while (Window.isOpen()) {
 		sf::Event event;
-		Window.pollEvent(event);
-		if (event.type == sf::Event::Closed) {
-			Window.close();
+		while (Window.pollEvent(event)) {
+			if (event.type == sf::Event::Closed) { Window.close(); }
+			root.process(event);
 		}
+
 		Window.clear();
 		Window.draw(root);
 		Window.display();

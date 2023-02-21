@@ -6,10 +6,22 @@ class Button : public GameObject {
 
 	sf::RectangleShape shape;
 
+	
+	bool isPressed(sf::Event& event) {
+		return
+			event.type == sf::Event::MouseButtonPressed &&
+			event.mouseButton.button == sf::Mouse::Left &&
+			shape.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y);
+	}
+
 protected:
 
 	void onDraw(sf::RenderTarget& win, sf::RenderStates states) const {
 		win.draw(shape, states);
+	}
+
+	void onEvent(sf::Event& event) {
+		if (isPressed(event)) { std::cout << "Left Clicked" << std::endl; }
 	}
 
 public:
