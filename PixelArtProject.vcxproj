@@ -133,6 +133,8 @@
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Button.h" />
+    <ClInclude Include="ButtonFactory.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="SFML.h" />
   </ItemGroup>
