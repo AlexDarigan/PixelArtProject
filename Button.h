@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "Callback.h"
+#include "App.h"
 
 class Button : public GameObject, public Color {
 	static Button buttons[100];
@@ -19,8 +20,8 @@ class Button : public GameObject, public Color {
 	bool isMouseDragged(sf::Event& event) {
 		return
 			event.type == sf::Event::MouseMoved &&
-			shape.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y);// &&
-			//sf::Mouse::isButtonPressed(sf::Mouse::Left);
+			sf::Mouse::isButtonPressed(sf::Mouse::Left) &&
+			shape.getGlobalBounds().contains(App::getMousePosition().x, App::getMousePosition().y);
 	}
 	
 
