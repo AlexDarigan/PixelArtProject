@@ -29,6 +29,41 @@ Grid* createButtonOptions();
 Grid* createDrawingGrid();
 Grid* createColorPalette();
 
+class RenderObject : public GameObject {
+
+	sf::RectangleShape shape;
+	sf::Sprite sprite;
+	sf::Image texture;
+	sf::Texture tex;
+
+protected:
+
+	virtual void onDraw(sf::RenderTarget& window, sf::RenderStates states) const {
+		// To be overriden by children objects
+		
+		window.draw(sprite, states);
+	}
+
+public:
+
+	RenderObject() {
+		texture.create(400, 400);
+		shape.setScale(sf::Vector2f(50, 50));
+		shape.setPosition(sf::Vector2f(50, 50));
+
+		for (int x = 0; x < 400; x++) {
+			for (int y = 0; y < 400; y++) {
+				texture.setPixel(x, y, sf::Color(x, y, 0, 150));
+			}
+		}
+		
+		tex.loadFromImage(texture);
+		sprite.setTexture(tex);
+		//sprite.setI
+	}
+
+};
+
 int main() {
 	std::cout << "Hello World" << std::endl;
 	
@@ -40,15 +75,23 @@ int main() {
 	Grid* pixels = createDrawingGrid();
 	Grid* swatches = createColorPalette();
 	
+	
+
 	root->addChild(buttons);
 	root->addChild(pixels);
 	root->addChild(swatches);
+
+	// Texture - Saving/Loading
+	// Use this for our pixels thing, add setPixelCallBack
+	RenderObject obj;
+	root->addChild(&obj);
 
 	sf::Time timePerFrame = sf::seconds(1.0f / 60.0f);
 	sf::Time delta = sf::Time::Zero;
 	sf::Clock clock;
 	clock.restart();
 
+	// Attempt Creating RenderTexture
 	
 
 	while (app->isOpen()) {
@@ -59,6 +102,7 @@ int main() {
 		}
 		delta += clock.restart();
 		if (delta > timePerFrame) {
+
 			app->redraw();
 		}
 	}
