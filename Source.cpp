@@ -26,7 +26,7 @@ Grid* createButtonOptions();
 Grid* createColorPalette();
 
 ToolBox* toolBox = new ToolBox();
-PixelCanvas* pixelCanvas = new PixelCanvas(180, 75, 400, 400);
+PixelCanvas* pixelCanvas = new PixelCanvas(toolBox, 180, 75, 400, 400);
 
 int main() {
 	std::cout << "Hello World" << std::endl;

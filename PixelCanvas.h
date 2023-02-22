@@ -2,9 +2,11 @@
 #include "GameObject.h"
 #include "Callback.h"
 #include "CollisionShape.h"
+#include "ToolBox.h"
 
 class PixelCanvas : public GameObject {
 
+	ToolBox* toolBox;
 	sf::Sprite sprite;
 	sf::Image image;
 	sf::Texture texture;
@@ -28,7 +30,8 @@ protected:
 
 public:
 
-	PixelCanvas(float x, float y, float width, float height) {
+	PixelCanvas(ToolBox* toolBox, float x, float y, float width, float height) {
+		this->toolBox = toolBox;
 		collider = new CollisionShape(this);
 		image.create(width, height);
 		sprite.setPosition(x, y);
@@ -47,6 +50,11 @@ public:
 	void setOnMouseDragged(Callback* callback) { collider->setOnMouseDragged(callback); }
 	void setColor(sf::Color color) { this->currentColor = color; }
 	void setPixels() { 
+
+		if (toolBox->getTool() != ToolBox::PaintBrush) {
+			return;
+		}
+
 		Position relative = Position(App::getMousePosition() - sf::Vector2i(getPosition()));
 		auto width = std::min(relative.x + getBrushSize(), getSize().x);
 		auto height = std::min(relative.y + getBrushSize(), getSize().y);
