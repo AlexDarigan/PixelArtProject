@@ -33,10 +33,10 @@ public:
 		image.create(width, height);
 		sprite.setPosition(x, y);
 
+		const sf::Color grey = sf::Color(128, 128, 128, 255);
 		for (auto x = 0; x < width; x++) {
 			for (auto y = 0; y < height; y++) {
-				//sf::Color color = (x + y) % 2 == 0 ? sf::Color::White : sf::Color::Black;
-				image.setPixel(x, y, sf::Color::Black);
+				image.setPixel(x, y, grey);
 			}
 		}
 

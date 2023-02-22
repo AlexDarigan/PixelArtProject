@@ -10,10 +10,17 @@ class ToolBox {
 	Tool selected = Tool::Cursor;
 	const std::string ToolNames[6] = { "Cursor", "PaintBrush", "Eraser", "EyeDropper", "Picker", "Max" };
 
+	SetPixels* setPixels;
+	ErasePixels* erasePixels;
+	SampleColor* sampleColor;
+
 public:
 
 	ToolBox(PixelCanvas* pixelCanvas) {
 		this->pixelCanvas = pixelCanvas;
+		setPixels = new SetPixels(pixelCanvas);
+		erasePixels = new ErasePixels(pixelCanvas);
+		sampleColor = new SampleColor(pixelCanvas);
 	}
 
 	const enum Tool { Cursor, PaintBrush, Eraser, EyeDropper, Picker, MAX, };
@@ -24,17 +31,19 @@ public:
 		std::cout << "Selecting tool: " << tool << std::endl;
 		switch (tool) {
 		case Cursor:
+			pixelCanvas->setOnPressed(nullptr);
+			pixelCanvas->setOnMouseDragged(nullptr);
 			break;
 		case PaintBrush:
-			pixelCanvas->setOnPressed(new SetPixels(pixelCanvas));
-			pixelCanvas->setOnMouseDragged(new SetPixels(pixelCanvas));
+			pixelCanvas->setOnPressed(setPixels);
+			pixelCanvas->setOnMouseDragged(setPixels);
 			break;
 		case Eraser:
-			pixelCanvas->setOnPressed(new ErasePixels(pixelCanvas));
-			pixelCanvas->setOnMouseDragged(new ErasePixels(pixelCanvas));
+			pixelCanvas->setOnPressed(erasePixels);
+			pixelCanvas->setOnMouseDragged(erasePixels);
 			break;
 		case EyeDropper:
-			pixelCanvas->setOnPressed(new SampleColor(pixelCanvas));
+			pixelCanvas->setOnPressed(sampleColor);
 			pixelCanvas->setOnMouseDragged(nullptr);
 			break;
 		case Picker:

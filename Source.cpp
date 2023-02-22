@@ -14,6 +14,7 @@
 #include "ToolBox.h"
 #include "SetTool.h"
 
+
 const sf::Color Cream(244, 244, 166);
 const sf::Color Colors[9] = {
 	sf::Color::Red, sf::Color::Blue, sf::Color::Green,
@@ -28,16 +29,15 @@ Grid* createColorPalette();
 PixelCanvas* pixelCanvas = new PixelCanvas(180, 75, 400, 400);
 ToolBox* toolBox = new ToolBox(pixelCanvas);
 
+
 int main() {
-	std::cout << "Hello World" << std::endl;
-	
+
+
 	auto app = App::getInstance();
-	
-	// SceneTree
 	auto root = app->getRoot();
 	auto buttons = createButtonOptions();
 	auto swatches = createColorPalette();
-	
+
 	root->addChild(buttons);
 	root->addChild(pixelCanvas);
 	root->addChild(swatches);
