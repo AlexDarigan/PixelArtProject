@@ -38,8 +38,22 @@ class EyeDropper : Tool {};
 class Eraser : Tool {};
 class Picker : Tool {};
 
-using Size = sf::Vector2f;
-using Position = sf::Vector2f;
+//using Size = sf::Vector2f;
+//using Position = sf::Vector2f;
+
+//class setPixelX {
+//
+//	PixelCanvas canvas;
+//	PaintBrush brush;
+//
+//protected:
+//
+//	virtual void onCalled() {
+//		// We need to get location data
+//		Position pos(0, 0);
+//		canvas.setPixel(pos, )
+//	}
+//};
 
 int main() {
 	std::cout << "Hello World" << std::endl;
@@ -94,7 +108,8 @@ Grid* createDrawingGrid() {
 	for (int i = 0; i < 64; i++) {
 		Button* button = new Button(sf::Color::White, 0, 0, 0, 0);
 		PaintTarget* paintTarget = new PaintTarget(&swatchColor, button);
-		button->setCallback(paintTarget);
+		button->setOnPressed(paintTarget);
+		button->setOnMouseDragged(paintTarget);
 		pixels->addChild(button);
 	}
 	return pixels;
@@ -105,7 +120,7 @@ Grid* createColorPalette() {
 	for (int i = 0; i < 9; i++) {
 		Button* button = new Button(Colors[i], 0, 0, 0, 0);
 		ChangeColor* callback = new ChangeColor(&swatchColor, Colors[i]);
-		button->setCallback(callback);
+		button->setOnPressed(callback);
 		swatches->addChild(button);
 	}
 	return swatches;

@@ -1,7 +1,6 @@
 #pragma once
 #include "SFML/Graphics.hpp"
 
-
 class Color {
 
 	sf::Color color = sf::Color::White;

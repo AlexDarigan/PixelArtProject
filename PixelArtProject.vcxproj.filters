@@ -44,5 +44,8 @@
     <ClInclude Include="PixelCanvas.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CollisionShape.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
