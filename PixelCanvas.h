@@ -88,13 +88,14 @@ public:
 
 	void loadImage(const std::string loadpath) {
 		if (loadpath.empty()) { return; }
-		image.loadFromFile(loadpath);
+		if (!image.loadFromFile(loadpath)) { return; }
 		updateSprite();
-		//std::cout << "Loading " << loadpath << std::endl;
 	}
 
 	void saveImage(const std::string savepath) {
-		std::cout << "Saving " << savepath << std::endl;
+		if (savepath.empty()) { return; }
+		if (!image.saveToFile(savepath)) { return;  }
+		std::cout << "Saved as " << savepath << std::endl;
 	}
 
 	void setBrushSize(int size) { brushSize = size; }
