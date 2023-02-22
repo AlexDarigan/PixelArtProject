@@ -138,10 +138,12 @@
     <ClInclude Include="CollisionShape.h" />
     <ClInclude Include="ErasePixels.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="LoadImage.h" />
     <ClInclude Include="SampleColor.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="App.h" />
     <ClInclude Include="PixelCanvas.h" />
+    <ClInclude Include="SaveImage.h" />
     <ClInclude Include="SetColor.h" />
     <ClInclude Include="SetPixels.h" />
     <ClInclude Include="SetTool.h" />

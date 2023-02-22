@@ -18,20 +18,3 @@ public:
 
 
 
-class PaintTarget : public Callback {
-	Color* swatchColor;
-	Color* target;
-
-protected:
-
-	virtual void onCalled() {
-		target->setColor(swatchColor->getColor());
-	}
-
-public:
-	PaintTarget(Color* swatchColor, Color* target) {
-		this->swatchColor = swatchColor;
-		this->target = target;
-	}
-
-};

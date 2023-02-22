@@ -12,6 +12,8 @@
 #include "ToolBox.h"
 #include "SetTool.h"
 #include "TextInput.h"
+#include "SaveImage.h"
+#include "LoadImage.h"
 
 
 
@@ -58,6 +60,8 @@ int main() {
 	// Updating for text
 	saveButton->setPosition(saveButton->getPosition());
 	loadButton->setPosition(loadButton->getPosition());
+	saveButton->setOnPressed(new SaveImage(pixelCanvas, textInput));
+	loadButton->setOnPressed(new LoadImage(pixelCanvas, textInput));
 
 	sf::Time timePerFrame = sf::seconds(1.0f / 60.0f);
 	sf::Time delta = sf::Time::Zero;

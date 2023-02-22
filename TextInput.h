@@ -51,6 +51,7 @@ public:
 		setPosition(position);
 	}
 
+	std::string getText() { return text.getString();  }
 	virtual void setSize(Size size) { shape.setSize(size); }
 	virtual void setPosition(Position position) {
 		shape.setPosition(position);

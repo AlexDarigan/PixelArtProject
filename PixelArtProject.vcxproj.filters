@@ -68,5 +68,11 @@
     <ClInclude Include="TextInput.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SaveImage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadImage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
