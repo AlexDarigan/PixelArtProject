@@ -7,6 +7,7 @@ class PixelCanvas : public GameObject {
 	sf::Sprite sprite;
 	sf::Image image;
 	sf::Texture texture;
+	sf::Color currentColor;
 
 	void updateSprite() {
 		texture.loadFromImage(image);
@@ -35,8 +36,7 @@ public:
 		updateSprite();
 	}
 
-	/*void setPixel(float x, float y, sf::Color color) {
-		image.setPixel(x, y, color);
-	}*/
+	void setColor(sf::Color color) { this->currentColor = color; }
+	void setPixel() { }
 
 };

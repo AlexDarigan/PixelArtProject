@@ -38,22 +38,7 @@ class EyeDropper : Tool {};
 class Eraser : Tool {};
 class Picker : Tool {};
 
-//using Size = sf::Vector2f;
-//using Position = sf::Vector2f;
-
-//class setPixelX {
-//
-//	PixelCanvas canvas;
-//	PaintBrush brush;
-//
-//protected:
-//
-//	virtual void onCalled() {
-//		// We need to get location data
-//		Position pos(0, 0);
-//		canvas.setPixel(pos, )
-//	}
-//};
+PixelCanvas* pixelCanvas = new PixelCanvas(180, 75, 400, 400);
 
 int main() {
 	std::cout << "Hello World" << std::endl;
@@ -119,9 +104,26 @@ Grid* createColorPalette() {
 	Grid* swatches = new Grid(sf::Vector2f(632, 350), sf::Vector2f(50, 50), 3, 3, 4, 4);
 	for (int i = 0; i < 9; i++) {
 		Button* button = new Button(Colors[i], 0, 0, 0, 0);
-		ChangeColor* callback = new ChangeColor(&swatchColor, Colors[i]);
+		ChangeColor* callback = new ChangeColor(pixelCanvas, Colors[i]);
 		button->setOnPressed(callback);
 		swatches->addChild(button);
 	}
 	return swatches;
 }
+
+//using Size = sf::Vector2f;
+//using Position = sf::Vector2f;
+
+//class setPixelX {
+//
+//	PixelCanvas canvas;
+//	PaintBrush brush;
+//
+//protected:
+//
+//	virtual void onCalled() {
+//		// We need to get location data
+//		Position pos(0, 0);
+//		canvas.setPixel(pos, )
+//	}
+//};

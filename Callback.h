@@ -1,6 +1,7 @@
 #pragma once
 #include "SFML/Graphics.hpp"
 #include "Color.h"
+#include "PixelCanvas.h"
 
 class Callback {
 
@@ -17,20 +18,21 @@ public:
 };
 
 class ChangeColor : public Callback {
-	Color* swatchColor;
+
+	PixelCanvas* pixelCanvas;
 	sf::Color color;
 
 protected:
 
 	virtual void onCalled() {
 		std::cout << "Changing Color" << std::endl;
-		swatchColor->setColor(color);
+		pixelCanvas->setColor(color);
 	}
 
 public:
 
-	ChangeColor(Color* swatchColor, sf::Color color) {
-		this->swatchColor = swatchColor;
+	ChangeColor(PixelCanvas* pixelCanvas, sf::Color color) {
+		this->pixelCanvas = pixelCanvas;
 		this->color = color;
 	}
 
