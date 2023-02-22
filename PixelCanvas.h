@@ -10,6 +10,7 @@ class PixelCanvas : public GameObject {
 	sf::Texture texture;
 	sf::Color currentColor;
 	CollisionShape* collider = nullptr;
+	int brushSize = 10;
 
 	void updateSprite() {
 		texture.loadFromImage(image);
@@ -45,15 +46,15 @@ public:
 	void setOnPressed(Callback* callback) { collider->setOnMouseLeftButtonPressed(callback); }
 	void setOnMouseDragged(Callback* callback) { collider->setOnMouseDragged(callback); }
 	void setColor(sf::Color color) { this->currentColor = color; }
-	void setPixel() { 
-		sf::Vector2i pos = App::getMousePosition();
-		int x = pos.x - getPosition().x;
-		int y = pos.y - getPosition().y;
-		std::cout << "Setting Pixel: (" << x << "," << y << ") as " << currentColor.toInteger() << std::endl;
+	void setPixels() { 
+		Position relative = Position(App::getMousePosition() - sf::Vector2i(getPosition()));
+		int width = std::min(relative.x + getBrushSize(), getSize().x);
+		int height = std::min(relative.y + getBrushSize(), getSize().y);
+		std::cout << "Setting Pixel: (" << relative.x << "," << relative.y << ") as " << currentColor.toInteger() << std::endl;
 		
 		// GetPixelBlock - Maybe use Paint Brush for this?
-		for (int i = x; i < (x + 10); i++) {
-			for (int j = y; j < (y + 10); j++) {
+		for (int i = relative.x; i < width; i++) {
+			for (int j = relative.y; j < height; j++) {
 				image.setPixel(i, j, currentColor);
 			}
 		}
@@ -61,6 +62,12 @@ public:
 		updateSprite();
 	}
 
+	// Callbacks
+	void erasePixel() { };
+	sf::Color getPixelColor() { return sf::Color::White;  };
+	void setBrushSize(int size) { brushSize = size; }
+	int getBrushSize() { return brushSize; }
+	
 	virtual void setSize(Size size) { }
 	virtual void setPosition(Position position) { }
 	virtual Size getSize() { return Size(image.getSize()); }

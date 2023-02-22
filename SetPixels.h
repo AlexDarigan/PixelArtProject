@@ -10,7 +10,7 @@ class SetPixels : public Callback {
 protected:
 
 	virtual void onCalled() {
-		pixelCanvas->setPixel();
+		pixelCanvas->setPixels();
 	}
 
 public:

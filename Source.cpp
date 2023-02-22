@@ -31,8 +31,6 @@ Color swatchColor;
 Grid* createButtonOptions();
 Grid* createColorPalette();
 
-class setPixel: public Callback { };
-class getPixel : public Callback { } ;
 class Tool { };
 class PaintBrush : Tool {};
 class EyeDropper : Tool {};
