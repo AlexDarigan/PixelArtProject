@@ -10,7 +10,7 @@ class PixelCanvas : public GameObject {
 	sf::Texture texture;
 	sf::Color currentColor;
 	CollisionShape* collider = nullptr;
-	int brushSize = 10;
+	int brushSize = 16;
 
 	void updateSprite() {
 		texture.loadFromImage(image);
