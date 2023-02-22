@@ -33,8 +33,8 @@ public:
 		image.create(width, height);
 		sprite.setPosition(x, y);
 
-		for (int x = 0; x < width; x++) {
-			for (int y = 0; y < height; y++) {
+		for (auto x = 0; x < width; x++) {
+			for (auto y = 0; y < height; y++) {
 				//sf::Color color = (x + y) % 2 == 0 ? sf::Color::White : sf::Color::Black;
 				image.setPixel(x, y, sf::Color::Black);
 			}
@@ -48,13 +48,13 @@ public:
 	void setColor(sf::Color color) { this->currentColor = color; }
 	void setPixels() { 
 		Position relative = Position(App::getMousePosition() - sf::Vector2i(getPosition()));
-		int width = std::min(relative.x + getBrushSize(), getSize().x);
-		int height = std::min(relative.y + getBrushSize(), getSize().y);
+		auto width = std::min(relative.x + getBrushSize(), getSize().x);
+		auto height = std::min(relative.y + getBrushSize(), getSize().y);
 		std::cout << "Setting Pixel: (" << relative.x << "," << relative.y << ") as " << currentColor.toInteger() << std::endl;
 		
 		// GetPixelBlock - Maybe use Paint Brush for this?
-		for (int i = relative.x; i < width; i++) {
-			for (int j = relative.y; j < height; j++) {
+		for (auto i = relative.x; i < width; i++) {
+			for (auto j = relative.y; j < height; j++) {
 				image.setPixel(i, j, currentColor);
 			}
 		}
