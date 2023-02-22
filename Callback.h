@@ -23,6 +23,7 @@ class ChangeColor : public Callback {
 protected:
 
 	virtual void onCalled() {
+		std::cout << "Changing Color" << std::endl;
 		swatchColor->setColor(color);
 	}
 
