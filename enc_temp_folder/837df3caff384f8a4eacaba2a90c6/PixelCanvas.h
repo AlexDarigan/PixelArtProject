@@ -51,7 +51,7 @@ public:
 		sf::Vector2i pos = App::getMousePosition();
 		int x = pos.x - getPosition().x;
 		int y = pos.y - getPosition().y;
-		std::cout << "Setting Pixel: (" << x << "," << y << ") as " << currentColor.toInteger() << std::endl;
+		std::cout << "Setting Pixel: (" << x << "," << y << " with a color of " << currentColor.toInteger() << std::endl;
 		
 		// GetPixelBlock - Maybe use Paint Brush for this?
 		for (int i = x; i < (x + 10); i++) {

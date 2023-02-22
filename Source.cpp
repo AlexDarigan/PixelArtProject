@@ -48,14 +48,15 @@ int main() {
 	// SceneTree
 	GameObject* root = app->getRoot();
 	Grid* buttons = createButtonOptions();
-	Grid* pixels = createDrawingGrid();
+	//Grid* pixels = createDrawingGrid();
 	Grid* swatches = createColorPalette();
 	
-	PixelCanvas* canvas = new PixelCanvas(180, 75, 400, 400);
-	
+	SetPixel* setPixel = new SetPixel(pixelCanvas);
+	pixelCanvas->setOnMouseDragged(setPixel);
+	pixelCanvas->setOnPressed(setPixel);
 
 	root->addChild(buttons);
-	root->addChild(canvas);
+	root->addChild(pixelCanvas);
 	root->addChild(swatches);
 
 	sf::Time timePerFrame = sf::seconds(1.0f / 60.0f);
