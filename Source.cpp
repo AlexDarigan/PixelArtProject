@@ -23,6 +23,7 @@ class ToolBox {
 
 	enum Tool;
 	Tool selected = Tool::None;
+	const std::string ToolNames[6] = { "None", "PaintBrush", "Eraser", "EyeDropper", "Picker", "Max"};
 
 public:
 
@@ -39,6 +40,10 @@ public:
 	void select(Tool tool) { 
 		std::cout << "Selecting tool: " << tool << std::endl;
 		selected = tool; 
+	}
+
+	const std::string& getToolName(Tool tool) {
+		return ToolNames[tool];
 	}
 };
 
@@ -121,7 +126,7 @@ Grid* createButtonOptions() {
 	Grid* buttons = new Grid(sf::Vector2f(8, 75), sf::Vector2f(64, 64), 5, 2, 4, 4);
 	for (int i = 1; i < ToolBox::Tool::MAX; i++) {
 		Button* button = new Button();
-		button->setImage("PaintBrush.png");
+		button->setImage(toolBox->getToolName(ToolBox::Tool(i)) + ".png");
 		SelectTool* selectTool = new SelectTool(toolBox, ToolBox::Tool(i));
 		button->setOnPressed(selectTool);
 		buttons->addChild(button);
