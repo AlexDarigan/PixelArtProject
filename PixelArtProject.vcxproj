@@ -147,6 +147,7 @@
     <ClInclude Include="SetTool.h" />
     <ClInclude Include="SFML.h" />
     <ClInclude Include="Color.h" />
+    <ClInclude Include="TextInput.h" />
     <ClInclude Include="ToolBox.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
