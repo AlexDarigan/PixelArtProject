@@ -14,6 +14,10 @@ class ToolBox {
 	ErasePixels* erasePixels;
 	SampleColor* sampleColor;
 
+	void setMouseCursorIcon(Tool tool) {
+		App::getInstance()->setCursor(getToolName(tool) + ".png");
+	}
+
 public:
 
 	ToolBox(PixelCanvas* pixelCanvas) {
@@ -28,7 +32,8 @@ public:
 	Tool getTool() { return selected; }
 
 	void setTool(Tool tool) {
-		std::cout << "Selecting tool: " << tool << std::endl;
+		std::cout << "Selecting tool: " << getToolName(tool) << std::endl;
+		setMouseCursorIcon(tool);
 		switch (tool) {
 		case Cursor:
 			pixelCanvas->setOnPressed(nullptr);
