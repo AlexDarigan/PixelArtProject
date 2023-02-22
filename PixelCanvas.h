@@ -2,11 +2,9 @@
 #include "GameObject.h"
 #include "Callback.h"
 #include "CollisionShape.h"
-#include "ToolBox.h"
 
 class PixelCanvas : public GameObject {
 
-	ToolBox* toolBox;
 	sf::Sprite sprite;
 	sf::Image image;
 	sf::Texture texture;
@@ -30,8 +28,7 @@ protected:
 
 public:
 
-	PixelCanvas(ToolBox* toolBox, float x, float y, float width, float height) {
-		this->toolBox = toolBox;
+	PixelCanvas(float x, float y, float width, float height) {
 		collider = new CollisionShape(this);
 		image.create(width, height);
 		sprite.setPosition(x, y);
@@ -49,11 +46,8 @@ public:
 	void setOnPressed(Callback* callback) { collider->setOnMouseLeftButtonPressed(callback); }
 	void setOnMouseDragged(Callback* callback) { collider->setOnMouseDragged(callback); }
 	void setColor(sf::Color color) { this->currentColor = color; }
-	void setPixels() { 
+	void setPixels() {
 
-		if (toolBox->getTool() != ToolBox::PaintBrush) {
-			return;
-		}
 
 		Position relative = Position(App::getMousePosition() - sf::Vector2i(getPosition()));
 		auto width = std::min(relative.x + getBrushSize(), getSize().x);
@@ -70,8 +64,22 @@ public:
 		updateSprite();
 	}
 
-	// Callbacks
-	void erasePixel() { };
+	void erasePixels() {
+
+		Position relative = Position(App::getMousePosition() - sf::Vector2i(getPosition()));
+		auto width = std::min(relative.x + getBrushSize(), getSize().x);
+		auto height = std::min(relative.y + getBrushSize(), getSize().y);
+		std::cout << "Setting Pixel: (" << relative.x << "," << relative.y << ") as " << currentColor.toInteger() << std::endl;
+
+		// GetPixelBlock - Maybe use Paint Brush for this?
+		for (auto i = relative.x; i < width; i++) {
+			for (auto j = relative.y; j < height; j++) {
+				image.setPixel(i, j, sf::Color::White);
+			}
+		}
+
+		updateSprite();
+	}
 	sf::Color getPixelColor() { return sf::Color::White;  };
 	void setBrushSize(int size) { brushSize = size; }
 	int getBrushSize() { return brushSize; }
@@ -82,4 +90,3 @@ public:
 	virtual Position getPosition() { return sprite.getPosition(); }
 
 };
-

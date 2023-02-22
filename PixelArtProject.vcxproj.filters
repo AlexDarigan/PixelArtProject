@@ -59,5 +59,8 @@
     <ClInclude Include="SetTool.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ErasePixels.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

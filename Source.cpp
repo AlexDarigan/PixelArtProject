@@ -25,8 +25,8 @@ const sf::Color Colors[9] = {
 Grid* createButtonOptions();
 Grid* createColorPalette();
 
-ToolBox* toolBox = new ToolBox();
-PixelCanvas* pixelCanvas = new PixelCanvas(toolBox, 180, 75, 400, 400);
+PixelCanvas* pixelCanvas = new PixelCanvas(180, 75, 400, 400);
+ToolBox* toolBox = new ToolBox(pixelCanvas);
 
 int main() {
 	std::cout << "Hello World" << std::endl;
@@ -38,10 +38,6 @@ int main() {
 	auto buttons = createButtonOptions();
 	auto swatches = createColorPalette();
 	
-	auto setPixels = new SetPixels(pixelCanvas);
-	pixelCanvas->setOnMouseDragged(setPixels);
-	pixelCanvas->setOnPressed(setPixels);
-
 	root->addChild(buttons);
 	root->addChild(pixelCanvas);
 	root->addChild(swatches);
