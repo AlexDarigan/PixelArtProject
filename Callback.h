@@ -17,8 +17,6 @@ public:
 };
 
 class ChangeColor : public Callback {
-	static ChangeColor changeColors[100];
-	static int count;
 	Color* swatchColor;
 	sf::Color color;
 
@@ -29,24 +27,15 @@ protected:
 	}
 
 public:
-	static ChangeColor* create(Color* swatchColor, sf::Color color);
+
+	ChangeColor(Color* swatchColor, sf::Color color) {
+		this->swatchColor = swatchColor;
+		this->color = color;
+	}
+
 };
 
-
-int ChangeColor::count = 0;
-ChangeColor ChangeColor::changeColors[100] = {};
-ChangeColor* ChangeColor::create(Color* swatchColor, sf::Color color) {
-	ChangeColor changeColorCallback;
-	changeColorCallback.swatchColor = swatchColor;
-	changeColorCallback.color = color;
-	changeColors[count] = changeColorCallback;
-	count++;
-	return (ChangeColor*)&changeColors[count - 1];
-}
-
 class PaintTarget : public Callback {
-	static PaintTarget paintTargets[100];
-	static int count;
 	Color* swatchColor;
 	Color* target;
 
@@ -57,18 +46,9 @@ protected:
 	}
 
 public:
-	static PaintTarget* create(Color* swatchColor, Color* target);
+	PaintTarget(Color* swatchColor, Color* target) {
+		this->swatchColor = swatchColor;
+		this->target = target;
+	}
+
 };
-
-
-int PaintTarget::count = 0;
-PaintTarget PaintTarget::paintTargets[100] = {};
-PaintTarget* PaintTarget::create(Color* swatchColor, Color* target) {
-	PaintTarget paintTarget;
-	paintTarget.swatchColor = swatchColor;
-	paintTarget.target = target;
-	paintTargets[count] = paintTarget;
-	count++;
-	return (PaintTarget*)&paintTargets[count - 1];
-}
-

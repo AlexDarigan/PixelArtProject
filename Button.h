@@ -4,9 +4,7 @@
 #include "App.h"
 
 class Button : public GameObject, public Color {
-	static Button buttons[100];
-	static int count;
-
+	
 	Callback* callback = nullptr;
 	sf::RectangleShape shape;
 
@@ -23,7 +21,7 @@ class Button : public GameObject, public Color {
 			sf::Mouse::isButtonPressed(sf::Mouse::Left) &&
 			shape.getGlobalBounds().contains(App::getMousePosition().x, App::getMousePosition().y);
 	}
-	
+
 
 protected:
 
@@ -32,7 +30,7 @@ protected:
 	}
 
 	void onEvent(sf::Event& event) {
-		if (isPressed(event)) { 
+		if (isPressed(event)) {
 			std::cout << "Left Clicked" << std::endl;
 			callback->call();
 			if (callback != nullptr) { callback->call(); }
@@ -45,9 +43,14 @@ protected:
 
 public:
 
-	static Button* create(sf::Color color, float x = 0, float y = 0, float width = 50, float height = 50);
+	Button(sf::Color color, float x = 0, float y = 0, float width = 50, float height = 50) {
+		shape.setFillColor(color);
+		setPosition(sf::Vector2f(x, y));
+		setSize(sf::Vector2f(width, height));;
+	}
+
 	bool isPressed(sf::Vector2f point) { return shape.getGlobalBounds().contains(point); }
-	void setCallback(Callback *callback) { this->callback = callback; }
+	void setCallback(Callback* callback) { this->callback = callback; }
 	virtual void setSize(sf::Vector2f size) { shape.setSize(size); }
 	virtual void setPosition(sf::Vector2f position) { shape.setPosition(position); }
 	virtual sf::Vector2f getSize() { return shape.getSize(); }
@@ -55,15 +58,3 @@ public:
 	virtual void setColor(sf::Color color) { shape.setFillColor(color); }
 	virtual sf::Color getColor() { return shape.getFillColor(); }
 };
-
-int Button::count = 0;
-Button Button::buttons[100] = {};
-Button* Button::create(sf::Color color, float x, float y, float width, float height) {
-	Button button;
-	button.shape.setFillColor(color);
-	button.setPosition(sf::Vector2f(x, y));
-	button.setSize(sf::Vector2f(width, height));
-	buttons[count] = button;
-	count++;
-	return &buttons[count - 1];
-}

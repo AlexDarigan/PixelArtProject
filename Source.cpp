@@ -109,18 +109,18 @@ int main() {
 }
 
 Grid* createButtonOptions() {
-	Grid* buttons = Grid::create(sf::Vector2f(8, 75), sf::Vector2f(50, 50), 8, 2, 4, 4);
+	Grid* buttons = new Grid(sf::Vector2f(8, 75), sf::Vector2f(50, 50), 8, 2, 4, 4);
 	for (int i = 0; i < 16; i++) {
-		buttons->addChild(Button::create(sf::Color::White, 0, 0, 0, 0));
+		buttons->addChild(new Button(sf::Color::White, 0, 0, 0, 0));
 	}
 	return buttons;
 }
 
 Grid* createDrawingGrid() {
-	Grid* pixels = Grid::create(sf::Vector2f(190, 75), sf::Vector2f(50, 50), 8, 8, 0, 0);
+	Grid* pixels = new Grid(sf::Vector2f(190, 75), sf::Vector2f(50, 50), 8, 8, 0, 0);
 	for (int i = 0; i < 64; i++) {
-		Button* button = Button::create(sf::Color::White, 0, 0, 0, 0);
-		PaintTarget* paintTarget = PaintTarget::create(&swatchColor, button);
+		Button* button = new Button(sf::Color::White, 0, 0, 0, 0);
+		PaintTarget* paintTarget = new PaintTarget(&swatchColor, button);
 		button->setCallback(paintTarget);
 		pixels->addChild(button);
 	}
@@ -128,10 +128,10 @@ Grid* createDrawingGrid() {
 }
 
 Grid* createColorPalette() {
-	Grid* swatches = Grid::create(sf::Vector2f(632, 350), sf::Vector2f(50, 50), 3, 3, 4, 4);
+	Grid* swatches = new Grid(sf::Vector2f(632, 350), sf::Vector2f(50, 50), 3, 3, 4, 4);
 	for (int i = 0; i < 9; i++) {
-		Button* button = Button::create(Colors[i], 0, 0, 0, 0);
-		ChangeColor* callback = ChangeColor::create(&swatchColor, Colors[i]);
+		Button* button = new Button(Colors[i], 0, 0, 0, 0);
+		ChangeColor* callback = new ChangeColor(&swatchColor, Colors[i]);
 		button->setCallback(callback);
 		swatches->addChild(button);
 	}
