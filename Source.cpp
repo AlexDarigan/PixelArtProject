@@ -118,17 +118,15 @@ int main() {
 }
 
 Grid* createButtonOptions() {
-	Grid* buttons = new Grid(sf::Vector2f(8, 75), sf::Vector2f(50, 50), 5, 2, 4, 4);
+	Grid* buttons = new Grid(sf::Vector2f(8, 75), sf::Vector2f(64, 64), 5, 2, 4, 4);
 	for (int i = 1; i < ToolBox::Tool::MAX; i++) {
-		Button* button = new Button(sf::Color::White, 0, 0, 0, 0);
+		Button* button = new Button();
+		button->setImage("PaintBrush.png");
 		SelectTool* selectTool = new SelectTool(toolBox, ToolBox::Tool(i));
 		button->setOnPressed(selectTool);
 		buttons->addChild(button);
 	}
-	
-	/*for (int i = 0; i < 16; i++) {
-		buttons->addChild(new Button(sf::Color::White, 0, 0, 0, 0));
-	}*/
+
 	return buttons;
 }
 
