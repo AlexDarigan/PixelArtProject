@@ -35,4 +35,8 @@ public:
 		updateSprite();
 	}
 
+	/*void setPixel(float x, float y, sf::Color color) {
+		image.setPixel(x, y, color);
+	}*/
+
 };

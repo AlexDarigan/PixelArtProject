@@ -30,6 +30,16 @@ Grid* createButtonOptions();
 Grid* createDrawingGrid();
 Grid* createColorPalette();
 
+class setPixel: public Callback { };
+class getPixel : public Callback { } ;
+class Tool { };
+class PaintBrush : Tool {};
+class EyeDropper : Tool {};
+class Eraser : Tool {};
+class Picker : Tool {};
+
+using Size = sf::Vector2f;
+using Position = sf::Vector2f;
 
 int main() {
 	std::cout << "Hello World" << std::endl;
