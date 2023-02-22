@@ -66,8 +66,8 @@ int main() {
 }
 
 Grid* createButtonOptions() {
-	auto buttons = new Grid(sf::Vector2f(8, 75), sf::Vector2f(64, 64), 5, 2, 4, 4);
-	for (int i = 1; i < ToolBox::Tool::MAX; i++) {
+	auto buttons = new Grid(sf::Vector2f(8, 75), sf::Vector2f(64, 64), ToolBox::Tool::MAX / 2, 2, 4, 4);
+	for (int i = 0; i < ToolBox::Tool::MAX; i++) {
 		auto button = new Button();
 		auto selectTool = new SetTool(toolBox, ToolBox::Tool(i));
 		button->setImage(toolBox->getToolName(ToolBox::Tool(i)) + ".png");

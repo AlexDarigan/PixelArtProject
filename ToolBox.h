@@ -3,12 +3,12 @@
 class ToolBox {
 
 	enum Tool;
-	Tool selected = Tool::None;
-	const std::string ToolNames[6] = { "None", "PaintBrush", "Eraser", "EyeDropper", "Picker", "Max" };
+	Tool selected = Tool::Cursor;
+	const std::string ToolNames[6] = { "Cursor", "PaintBrush", "Eraser", "EyeDropper", "Picker", "Max" };
 
 public:
 
-	const enum Tool { None, PaintBrush, Eraser, EyeDropper, Picker, MAX, };
+	const enum Tool { Cursor, PaintBrush, Eraser, EyeDropper, Picker, MAX, };
 
 	Tool getTool() { return selected; }
 
