@@ -47,5 +47,11 @@
     <ClInclude Include="CollisionShape.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SetColor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SetPixels.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

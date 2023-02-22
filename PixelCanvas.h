@@ -3,8 +3,6 @@
 #include "Callback.h"
 #include "CollisionShape.h"
 
-
-
 class PixelCanvas : public GameObject {
 
 	sf::Sprite sprite;
@@ -87,22 +85,5 @@ public:
 	SetColor(PixelCanvas* pixelCanvas, sf::Color color) {
 		this->pixelCanvas = pixelCanvas;
 		this->color = color;
-	}
-};
-
-class SetPixel : public Callback {
-
-	PixelCanvas* pixelCanvas;
-
-protected:
-
-	virtual void onCalled() {
-		pixelCanvas->setPixel();
-	}
-
-public:
-
-	SetPixel(PixelCanvas* pixelCanvas) {
-		this->pixelCanvas = pixelCanvas;
 	}
 };

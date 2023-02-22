@@ -9,6 +9,8 @@
 #include "Color.h"
 #include "App.h"
 #include "PixelCanvas.h"
+#include "SetColor.h"
+#include "SetPixels.h"
 
 // TODO:
 // Create a ToolClass (which can have its own dedicated callbacks?)
@@ -27,7 +29,6 @@ const sf::Color Colors[9] = {
 Color swatchColor;
 
 Grid* createButtonOptions();
-Grid* createDrawingGrid();
 Grid* createColorPalette();
 
 class setPixel: public Callback { };
@@ -48,12 +49,11 @@ int main() {
 	// SceneTree
 	GameObject* root = app->getRoot();
 	Grid* buttons = createButtonOptions();
-	//Grid* pixels = createDrawingGrid();
 	Grid* swatches = createColorPalette();
 	
-	SetPixel* setPixel = new SetPixel(pixelCanvas);
-	pixelCanvas->setOnMouseDragged(setPixel);
-	pixelCanvas->setOnPressed(setPixel);
+	SetPixels* setPixels = new SetPixels(pixelCanvas);
+	pixelCanvas->setOnMouseDragged(setPixels);
+	pixelCanvas->setOnPressed(setPixels);
 
 	root->addChild(buttons);
 	root->addChild(pixelCanvas);
@@ -63,9 +63,6 @@ int main() {
 	sf::Time delta = sf::Time::Zero;
 	sf::Clock clock;
 	clock.restart();
-
-	// Attempt Creating RenderTexture
-	
 
 	while (app->isOpen()) {
 		sf::Event event;
@@ -89,18 +86,6 @@ Grid* createButtonOptions() {
 	return buttons;
 }
 
-Grid* createDrawingGrid() {
-	Grid* pixels = new Grid(sf::Vector2f(190, 75), sf::Vector2f(50, 50), 8, 8, 0, 0);
-	for (int i = 0; i < 64; i++) {
-		Button* button = new Button(sf::Color::White, 0, 0, 0, 0);
-		PaintTarget* paintTarget = new PaintTarget(&swatchColor, button);
-		button->setOnPressed(paintTarget);
-		button->setOnMouseDragged(paintTarget);
-		pixels->addChild(button);
-	}
-	return pixels;
-}
-
 Grid* createColorPalette() {
 	Grid* swatches = new Grid(sf::Vector2f(632, 350), sf::Vector2f(50, 50), 3, 3, 4, 4);
 	for (int i = 0; i < 9; i++) {
@@ -111,20 +96,3 @@ Grid* createColorPalette() {
 	}
 	return swatches;
 }
-
-//using Size = sf::Vector2f;
-//using Position = sf::Vector2f;
-
-//class setPixelX {
-//
-//	PixelCanvas canvas;
-//	PaintBrush brush;
-//
-//protected:
-//
-//	virtual void onCalled() {
-//		// We need to get location data
-//		Position pos(0, 0);
-//		canvas.setPixel(pos, )
-//	}
-//};
