@@ -10,12 +10,14 @@ class Button : public GameObject, public Color {
 	sf::RectangleShape shape;
 	sf::Sprite sprite;
 	sf::Texture texture;
+	sf::Text text;
 
 protected:
 
 	void onDraw(sf::RenderTarget& win, sf::RenderStates states) const {
 		win.draw(shape, states);
 		win.draw(sprite, states);
+		win.draw(text, states);
 	}
 
 	void onEvent(sf::Event& event) { collider->process(event); }
@@ -35,12 +37,18 @@ public:
 		sprite.setTexture(texture);
 		sprite.setScale(sf::Vector2f(0.125, 0.125));
 	}
+
+	void setText(sf::Text text) { 
+		text.setFillColor(sf::Color::Black);
+		this->text = text; 
+	}
 	void setOnMouseDragged(Callback* callback) { collider->setOnMouseDragged(callback); }
 	void setOnPressed(Callback* callback) { collider->setOnMouseLeftButtonPressed(callback); }
 	virtual void setSize(Size size) { shape.setSize(size); }
 	virtual void setPosition(Position position) { 
 		shape.setPosition(position);
 		sprite.setPosition(position);
+		text.setPosition(getPosition() + (Size(getSize().x / 4, 0)));
 	}
 	virtual Size getSize() { return shape.getSize(); }
 	virtual Position getPosition() { return shape.getPosition(); }

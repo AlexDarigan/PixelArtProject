@@ -37,12 +37,27 @@ int main() {
 	auto root = app->getRoot();
 	auto buttons = createButtonOptions();
 	auto swatches = createColorPalette();
+
+	// Getting tired
+	sf::Font font;
+	font.loadFromFile("arial.ttf");
 	auto textInput = new TextInput(Size(400, 50), Position(180, 480));
+	auto saveButton = new Button(sf::Color(128, 128, 128), 180, 540, 190, 50);
+	auto loadButton = new Button(sf::Color(128, 128, 128), 385, 540, 195, 50);
+	saveButton->setText(sf::Text("Save", font, 32));
+	loadButton->setText(sf::Text("Load", font, 32));
 
 	root->addChild(buttons);
 	root->addChild(pixelCanvas);
 	root->addChild(swatches);
+
 	root->addChild(textInput);
+	textInput->addChild(saveButton);
+	textInput->addChild(loadButton);
+
+	// Updating for text
+	saveButton->setPosition(saveButton->getPosition());
+	loadButton->setPosition(loadButton->getPosition());
 
 	sf::Time timePerFrame = sf::seconds(1.0f / 60.0f);
 	sf::Time delta = sf::Time::Zero;

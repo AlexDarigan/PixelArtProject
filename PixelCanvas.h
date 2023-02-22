@@ -86,6 +86,14 @@ public:
 		return image.getPixel(relative.x, relative.y);
 	}
 
+	void loadImage(const std::string loadpath) {
+
+	}
+
+	void saveImage(const std::string savepath) {
+
+	}
+
 	void setBrushSize(int size) { brushSize = size; }
 	int getBrushSize() { return brushSize; }
 	
