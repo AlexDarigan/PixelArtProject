@@ -29,37 +29,37 @@ Grid* createButtonOptions();
 Grid* createDrawingGrid();
 Grid* createColorPalette();
 
-class RenderObject : public GameObject {
+class PixelCanvas: public GameObject {
 
-	sf::RectangleShape shape;
 	sf::Sprite sprite;
-	sf::Image texture;
-	sf::Texture tex;
+	sf::Image image;
+	sf::Texture texture;
+
+	void updateSprite() {
+		texture.loadFromImage(image);
+		sprite.setTexture(texture);
+	}
 
 protected:
 
 	virtual void onDraw(sf::RenderTarget& window, sf::RenderStates states) const {
-		// To be overriden by children objects
-		
 		window.draw(sprite, states);
 	}
 
 public:
 
-	RenderObject() {
-		texture.create(400, 400);
-		shape.setScale(sf::Vector2f(50, 50));
-		shape.setPosition(sf::Vector2f(50, 50));
-
-		for (int x = 0; x < 400; x++) {
-			for (int y = 0; y < 400; y++) {
-				texture.setPixel(x, y, sf::Color(x, y, 0, 150));
+	PixelCanvas(float x, float y, float width, float height) {
+		image.create(width, height);
+		sprite.setPosition(x, y);
+		
+		for (int x = 0; x < width; x++) {
+			for (int y = 0; y < height; y++) {
+				//sf::Color color = (x + y) % 2 == 0 ? sf::Color::White : sf::Color::Black;
+				image.setPixel(x, y, sf::Color::Black);
 			}
 		}
-		
-		tex.loadFromImage(texture);
-		sprite.setTexture(tex);
-		//sprite.setI
+
+		updateSprite();
 	}
 
 };
@@ -75,16 +75,12 @@ int main() {
 	Grid* pixels = createDrawingGrid();
 	Grid* swatches = createColorPalette();
 	
+	PixelCanvas* canvas = new PixelCanvas(180, 75, 400, 400);
 	
 
 	root->addChild(buttons);
-	root->addChild(pixels);
+	root->addChild(canvas);
 	root->addChild(swatches);
-
-	// Texture - Saving/Loading
-	// Use this for our pixels thing, add setPixelCallBack
-	RenderObject obj;
-	root->addChild(&obj);
 
 	sf::Time timePerFrame = sf::seconds(1.0f / 60.0f);
 	sf::Time delta = sf::Time::Zero;
