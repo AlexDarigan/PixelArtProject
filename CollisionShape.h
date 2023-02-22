@@ -1,5 +1,7 @@
-#pragma once
+// Student Name	: David Darigan
+// Student ID	: C00263218
 
+#pragma once
 #include "SFML/Graphics.hpp"
 #include "GameObject.h"
 #include "Callback.h"

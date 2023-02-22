@@ -1,3 +1,6 @@
+// Student Name	: David Darigan
+// Student ID	: C00263218
+
 #ifdef _DEBUG 
 #pragma comment(lib,"sfml-graphics-d.lib") 
 #pragma comment(lib,"sfml-audio-d.lib") 

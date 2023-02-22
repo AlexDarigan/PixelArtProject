@@ -1,3 +1,6 @@
+// Student Name	: David Darigan
+// Student ID	: C00263218
+
 #pragma once
 #include "SetPixels.h"
 #include "ErasePixels.h"

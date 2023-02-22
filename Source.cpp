@@ -1,3 +1,6 @@
+// Student Name	: David Darigan
+// Student ID	: C00263218
+
 #pragma once
 #include <iostream>
 #include "SFML/Graphics.hpp"
@@ -15,8 +18,6 @@
 #include "SaveImage.h"
 #include "LoadImage.h"
 
-
-
 const sf::Color Cream(244, 244, 166);
 const sf::Color Colors[9] = {
 	sf::Color::Red, sf::Color::Blue, sf::Color::Green,
@@ -27,10 +28,8 @@ const sf::Color Colors[9] = {
 
 Grid* createButtonOptions();
 Grid* createColorPalette();
-
 PixelCanvas* pixelCanvas = new PixelCanvas(180, 75, 400, 400);
 ToolBox* toolBox = new ToolBox(pixelCanvas);
-
 
 int main() {
 
