@@ -25,6 +25,10 @@ class CollisionShape {
 			shape.getGlobalBounds().contains(App::getMousePosition().x, App::getMousePosition().y);
 	}
 
+	bool isTextEntered(sf::Event& event) {
+
+	}
+
 	sf::RectangleShape getShape() {
 		sf::RectangleShape shape;
 		shape.setPosition(obj->getPosition());
