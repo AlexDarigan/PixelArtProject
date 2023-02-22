@@ -37,7 +37,9 @@ public:
 	}
 
 	void setColor(sf::Color color) { this->currentColor = color; }
-	void setPixel() { }
+	void setPixel() { 
+		image.setPixel(App::getMousePosition().x, App::getMousePosition().y, currentColor);
+	}
 
 };
 
@@ -59,5 +61,22 @@ public:
 		this->pixelCanvas = pixelCanvas;
 		this->color = color;
 	}
+};
 
+class SetPixel : public Callback {
+	
+	PixelCanvas* pixelCanvas;
+
+protected:
+
+	virtual void onCalled() {
+		std::cout << "Setting Pixel";
+		pixelCanvas->setPixel();
+	}
+
+public:
+
+	SetPixel(PixelCanvas* pixelCanvas) {
+		this->pixelCanvas = pixelCanvas;
+	}
 };
