@@ -87,7 +87,10 @@ public:
 	}
 
 	void loadImage(const std::string loadpath) {
-		std::cout << "Loading " << loadpath << std::endl;
+		if (loadpath.empty()) { return; }
+		image.loadFromFile(loadpath);
+		updateSprite();
+		//std::cout << "Loading " << loadpath << std::endl;
 	}
 
 	void saveImage(const std::string savepath) {
