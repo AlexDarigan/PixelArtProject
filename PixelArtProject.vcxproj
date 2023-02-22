@@ -142,8 +142,10 @@
     <ClInclude Include="PixelCanvas.h" />
     <ClInclude Include="SetColor.h" />
     <ClInclude Include="SetPixels.h" />
+    <ClInclude Include="SetTool.h" />
     <ClInclude Include="SFML.h" />
     <ClInclude Include="Color.h" />
+    <ClInclude Include="ToolBox.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

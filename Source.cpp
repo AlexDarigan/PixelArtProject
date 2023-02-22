@@ -11,58 +11,8 @@
 #include "PixelCanvas.h"
 #include "SetColor.h"
 #include "SetPixels.h"
-
-// TODO:
-// Create a ToolClass (which can have its own dedicated callbacks?)
-//	e.g PaintTool()
-//  if(selected) PaintTarget.call()?
-// Maybe PaintTarget.call(), if(painttool != selected) { return; }
-// PaintTarget(Tool, Target, Color)
-
-class ToolBox {
-
-	enum Tool;
-	Tool selected = Tool::None;
-	const std::string ToolNames[6] = { "None", "PaintBrush", "Eraser", "EyeDropper", "Picker", "Max"};
-
-public:
-
-	const enum Tool {
-		None, 
-		PaintBrush,
-		Eraser,
-		EyeDropper,
-		Picker,
-		MAX,
-	};
-
-	Tool getSelected() { return selected; }
-	void select(Tool tool) { 
-		std::cout << "Selecting tool: " << tool << std::endl;
-		selected = tool; 
-	}
-
-	const std::string& getToolName(Tool tool) {
-		return ToolNames[tool];
-	}
-};
-
-class SelectTool : public Callback {
-
-	ToolBox* toolBox;
-	ToolBox::Tool tool;
-
-	protected:
-
-		virtual void onCalled() { toolBox->select(tool); }
-
-	public:
-
-		SelectTool(ToolBox* toolBox, ToolBox::Tool tool) {
-			this->toolBox = toolBox;
-			this->tool = tool;
-		}
-};
+#include "ToolBox.h"
+#include "SetTool.h"
 
 const sf::Color Cream(244, 244, 166);
 const sf::Color Colors[9] = {
@@ -71,16 +21,9 @@ const sf::Color Colors[9] = {
 	sf::Color::Yellow, sf::Color::White, Cream
 };
 
-Color swatchColor;
 
 Grid* createButtonOptions();
 Grid* createColorPalette();
-
-class Tool { };
-class PaintBrush : Tool {};
-class EyeDropper : Tool {};
-class Eraser : Tool {};
-class Picker : Tool {};
 
 ToolBox* toolBox = new ToolBox();
 PixelCanvas* pixelCanvas = new PixelCanvas(180, 75, 400, 400);
@@ -88,14 +31,14 @@ PixelCanvas* pixelCanvas = new PixelCanvas(180, 75, 400, 400);
 int main() {
 	std::cout << "Hello World" << std::endl;
 	
-	App* app = App::getInstance();
+	auto app = App::getInstance();
 	
 	// SceneTree
-	GameObject* root = app->getRoot();
-	Grid* buttons = createButtonOptions();
-	Grid* swatches = createColorPalette();
+	auto root = app->getRoot();
+	auto buttons = createButtonOptions();
+	auto swatches = createColorPalette();
 	
-	SetPixels* setPixels = new SetPixels(pixelCanvas);
+	auto setPixels = new SetPixels(pixelCanvas);
 	pixelCanvas->setOnMouseDragged(setPixels);
 	pixelCanvas->setOnPressed(setPixels);
 
@@ -126,7 +69,7 @@ Grid* createButtonOptions() {
 	auto buttons = new Grid(sf::Vector2f(8, 75), sf::Vector2f(64, 64), 5, 2, 4, 4);
 	for (int i = 1; i < ToolBox::Tool::MAX; i++) {
 		auto button = new Button();
-		auto selectTool = new SelectTool(toolBox, ToolBox::Tool(i));
+		auto selectTool = new SetTool(toolBox, ToolBox::Tool(i));
 		button->setImage(toolBox->getToolName(ToolBox::Tool(i)) + ".png");
 		button->setOnPressed(selectTool);
 		buttons->addChild(button);
