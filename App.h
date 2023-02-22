@@ -16,7 +16,8 @@ class App {
 	App() {
 		Background.setFillColor(sf::Color(211, 211, 211));
 		Background.setSize(sf::Vector2f(800, 600));
-		setCursor("PaintBrush.png");
+		Window.setMouseCursorVisible(false);
+		setCursor("Cursor.png");
 	}
 
 public:

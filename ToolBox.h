@@ -52,6 +52,8 @@ public:
 			pixelCanvas->setOnMouseDragged(nullptr);
 			break;
 		case Picker:
+			pixelCanvas->setOnPressed(nullptr);
+			pixelCanvas->setOnMouseDragged(nullptr);
 			break;
 		case MAX:
 			break;
