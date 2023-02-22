@@ -19,6 +19,46 @@
 // Maybe PaintTarget.call(), if(painttool != selected) { return; }
 // PaintTarget(Tool, Target, Color)
 
+class ToolBox {
+
+	enum Tool;
+	Tool selected = Tool::None;
+
+public:
+
+	const enum Tool {
+		None, 
+		PaintBrush,
+		Eraser,
+		EyeDropper,
+		Picker,
+		MAX,
+	};
+
+	Tool getSelected() { return selected; }
+	void select(Tool tool) { 
+		std::cout << "Selecting tool: " << tool << std::endl;
+		selected = tool; 
+	}
+};
+
+class SelectTool : public Callback {
+
+	ToolBox* toolBox;
+	ToolBox::Tool tool;
+
+	protected:
+
+		virtual void onCalled() { toolBox->select(tool); }
+
+	public:
+
+		SelectTool(ToolBox* toolBox, ToolBox::Tool tool) {
+			this->toolBox = toolBox;
+			this->tool = tool;
+		}
+};
+
 const sf::Color Cream(244, 244, 166);
 const sf::Color Colors[9] = {
 	sf::Color::Red, sf::Color::Blue, sf::Color::Green,
@@ -37,6 +77,7 @@ class EyeDropper : Tool {};
 class Eraser : Tool {};
 class Picker : Tool {};
 
+ToolBox* toolBox = new ToolBox();
 PixelCanvas* pixelCanvas = new PixelCanvas(180, 75, 400, 400);
 
 int main() {
@@ -77,10 +118,17 @@ int main() {
 }
 
 Grid* createButtonOptions() {
-	Grid* buttons = new Grid(sf::Vector2f(8, 75), sf::Vector2f(50, 50), 8, 2, 4, 4);
-	for (int i = 0; i < 16; i++) {
-		buttons->addChild(new Button(sf::Color::White, 0, 0, 0, 0));
+	Grid* buttons = new Grid(sf::Vector2f(8, 75), sf::Vector2f(50, 50), 5, 2, 4, 4);
+	for (int i = 1; i < ToolBox::Tool::MAX; i++) {
+		Button* button = new Button(sf::Color::White, 0, 0, 0, 0);
+		SelectTool* selectTool = new SelectTool(toolBox, ToolBox::Tool(i));
+		button->setOnPressed(selectTool);
+		buttons->addChild(button);
 	}
+	
+	/*for (int i = 0; i < 16; i++) {
+		buttons->addChild(new Button(sf::Color::White, 0, 0, 0, 0));
+	}*/
 	return buttons;
 }
 
