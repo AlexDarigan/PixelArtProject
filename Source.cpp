@@ -104,7 +104,7 @@ Grid* createColorPalette() {
 	Grid* swatches = new Grid(sf::Vector2f(632, 350), sf::Vector2f(50, 50), 3, 3, 4, 4);
 	for (int i = 0; i < 9; i++) {
 		Button* button = new Button(Colors[i], 0, 0, 0, 0);
-		ChangeColor* callback = new ChangeColor(pixelCanvas, Colors[i]);
+		SetColor* callback = new SetColor(pixelCanvas, Colors[i]);
 		button->setOnPressed(callback);
 		swatches->addChild(button);
 	}

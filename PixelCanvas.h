@@ -1,6 +1,6 @@
 #pragma once
 #include "GameObject.h"
-
+#include "Callback.h"
 
 class PixelCanvas : public GameObject {
 
@@ -38,5 +38,26 @@ public:
 
 	void setColor(sf::Color color) { this->currentColor = color; }
 	void setPixel() { }
+
+};
+
+class SetColor : public Callback {
+
+	PixelCanvas* pixelCanvas;
+	sf::Color color;
+
+protected:
+
+	virtual void onCalled() {
+		std::cout << "Changing Color" << std::endl;
+		pixelCanvas->setColor(color);
+	}
+
+public:
+
+	SetColor(PixelCanvas* pixelCanvas, sf::Color color) {
+		this->pixelCanvas = pixelCanvas;
+		this->color = color;
+	}
 
 };
