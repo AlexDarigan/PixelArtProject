@@ -80,7 +80,12 @@ public:
 
 		updateSprite();
 	}
-	sf::Color getPixelColor() { return sf::Color::White;  };
+
+	sf::Color getPixelColor() { 
+		Position relative = Position(App::getMousePosition() - sf::Vector2i(getPosition()));
+		return image.getPixel(relative.x, relative.y);
+	}
+
 	void setBrushSize(int size) { brushSize = size; }
 	int getBrushSize() { return brushSize; }
 	

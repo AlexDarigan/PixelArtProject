@@ -1,6 +1,7 @@
 #pragma once
 #include "SetPixels.h"
 #include "ErasePixels.h"
+#include "SampleColor.h"
 
 class ToolBox {
 
@@ -33,6 +34,8 @@ public:
 			pixelCanvas->setOnMouseDragged(new ErasePixels(pixelCanvas));
 			break;
 		case EyeDropper:
+			pixelCanvas->setOnPressed(new SampleColor(pixelCanvas));
+			pixelCanvas->setOnMouseDragged(nullptr);
 			break;
 		case Picker:
 			break;
