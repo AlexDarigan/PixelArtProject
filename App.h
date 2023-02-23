@@ -26,6 +26,9 @@ public:
 	static App* getInstance();
 	bool isOpen() { return Window.isOpen(); }
 	void close() { Window.close(); }
+	void setMouseVisibility(bool visible) { 
+		Window.setMouseCursorVisible(visible); 
+	}
 	GameObject* getRoot() { return &root; }
 	bool poll(sf::Event& event) { return Window.pollEvent(event); }
 	void process(sf::Event& event) { 

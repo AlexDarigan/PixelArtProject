@@ -12,6 +12,7 @@ class CollisionShape {
 	GameObject* obj = nullptr;
 	Callback* onLeftMouseButtonPressed = nullptr;
 	Callback* onMouseDragged = nullptr;
+	Callback* onMouseButtonReleased = nullptr;
 
 	bool isLeftMouseButtonPressed(sf::Event& event, sf::RectangleShape shape) {
 		return
@@ -24,6 +25,12 @@ class CollisionShape {
 		return
 			event.type == sf::Event::MouseMoved &&
 			sf::Mouse::isButtonPressed(sf::Mouse::Left) &&
+			shape.getGlobalBounds().contains(App::getMousePosition().x, App::getMousePosition().y);
+	}
+
+	bool isMouseButtonReleased(sf::Event& event, sf::RectangleShape shape) {
+		return
+			event.type == sf::Event::MouseButtonReleased &&
 			shape.getGlobalBounds().contains(App::getMousePosition().x, App::getMousePosition().y);
 	}
 
@@ -48,6 +55,9 @@ protected:
 		else if (isLeftMouseButtonPressed(event, bounds)) {
 			if (onLeftMouseButtonPressed != nullptr) { onLeftMouseButtonPressed->call(); }
 		}
+		else if (isMouseButtonReleased(event, bounds)) {
+			if (onMouseButtonReleased != nullptr) { onMouseButtonReleased->call(); }
+		}
 	}
 	
 public:
@@ -62,4 +72,5 @@ public:
 
 	void setOnMouseDragged(Callback* callback) { onMouseDragged = callback; }
 	void setOnMouseLeftButtonPressed(Callback* callback) { onLeftMouseButtonPressed = callback; }
+	void setOnMouseReleased(Callback* callback) { onMouseButtonReleased = callback; }
 };

@@ -18,6 +18,14 @@
 #include "SaveImage.h"
 #include "LoadImage.h"
 
+// Drawing a Rectangle
+// Selection Tool
+// Both use an "origin" point on pressed inside PixelCanvas
+// PixelCanvas OnMouseDragged extends rectangle
+// OnRelease - Rectangle is drawn
+// OnRelease - Selection is copied (automatically)
+// Use Ctrl+V check to copy from mouseLocation (paint pixels with an origin)
+
 const sf::Color Cream(244, 244, 166);
 const sf::Color Colors[9] = {
 	sf::Color::Red, sf::Color::Blue, sf::Color::Green,

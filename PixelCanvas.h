@@ -14,6 +14,8 @@ class PixelCanvas : public GameObject {
 	sf::Color currentColor;
 	CollisionShape* collider = nullptr;
 	int brushSize = 16;
+	Position origin;
+	sf::RectangleShape rectangle;
 
 	void updateSprite() {
 		texture.loadFromImage(image);
@@ -24,6 +26,7 @@ protected:
 
 	virtual void onDraw(sf::RenderTarget& window, sf::RenderStates states) const {
 		window.draw(sprite, states);
+		window.draw(rectangle, states);
 	}
 
 	void onEvent(sf::Event& event) { collider->process(event); }
@@ -48,11 +51,11 @@ public:
 
 	void setOnPressed(Callback* callback) { collider->setOnMouseLeftButtonPressed(callback); }
 	void setOnMouseDragged(Callback* callback) { collider->setOnMouseDragged(callback); }
+	void setOnMouseReleased(Callback* callback) { collider->setOnMouseReleased(callback); }
 	void setColor(sf::Color color) { this->currentColor = color; }
 	void setPixels() {
 
-
-		Position relative = Position(App::getMousePosition() - sf::Vector2i(getPosition()));
+		Position relative = getRelativeMousePosition();
 		auto width = std::min(relative.x + getBrushSize(), getSize().x);
 		auto height = std::min(relative.y + getBrushSize(), getSize().y);
 		std::cout << "Setting Pixel: (" << relative.x << "," << relative.y << ") as " << currentColor.toInteger() << std::endl;
@@ -69,7 +72,7 @@ public:
 
 	void erasePixels() {
 
-		Position relative = Position(App::getMousePosition() - sf::Vector2i(getPosition()));
+		Position relative = getRelativeMousePosition();
 		auto width = std::min(relative.x + getBrushSize(), getSize().x);
 		auto height = std::min(relative.y + getBrushSize(), getSize().y);
 		std::cout << "Setting Pixel: (" << relative.x << "," << relative.y << ") as " << currentColor.toInteger() << std::endl;
@@ -81,6 +84,31 @@ public:
 			}
 		}
 
+		updateSprite();
+	}
+
+	void drawRect() {
+		Position drag = Position(App::getMousePosition());
+		rectangle.setFillColor(currentColor);
+		rectangle.setSize(Size(drag.x - origin.x, drag.y - origin.y));
+	}
+
+	void saveRect() {
+		sf::RenderTexture render;
+		Position spritePos = getPosition();
+		Position rectPos = getPosition() - Size(rectangle.getPosition().x / 2, -(rectangle.getPosition().y / 2));
+		render.create(getSize().x, getSize().y);
+
+		sprite.setPosition(0, 0);
+		rectangle.setPosition(rectPos.x, rectPos.y);
+		render.draw(sprite);
+		render.draw(rectangle);
+		render.display();
+		
+		image = render.getTexture().copyToImage();
+		sprite.setPosition(spritePos.x, spritePos.y);
+		rectangle.setPosition(rectPos.x, rectPos.y);
+		rectangle.setFillColor(sf::Color::Transparent);
 		updateSprite();
 	}
 
@@ -108,5 +136,11 @@ public:
 	virtual void setPosition(Position position) { }
 	virtual Size getSize() { return Size(image.getSize()); }
 	virtual Position getPosition() { return sprite.getPosition(); }
+	void setOrigin() { 
+		this->origin = Position(App::getMousePosition());
+		rectangle.setPosition(origin);
+	}
+	Position getOrigin() { return origin; }
+	Position getRelativeMousePosition() { return Position(App::getMousePosition() - sf::Vector2i(getPosition())); }
 
 };
