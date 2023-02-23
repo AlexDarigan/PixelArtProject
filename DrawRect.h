@@ -20,11 +20,6 @@ protected:
 
 public:
 
-	const enum RectType {
-		TransparentOutlined,
-		BorderlessFilled,
-	};
-
 	DrawRect(PixelCanvas* pixelCanvas, bool filledRect) {
 		this->pixelCanvas = pixelCanvas;
 		this->filledRect = filledRect;

@@ -16,6 +16,7 @@ class PixelCanvas : public GameObject {
 	int brushSize = 16;
 	Position origin;
 	sf::RectangleShape rectangle;
+	sf::Image copiedRect;
 
 	void updateSprite() {
 		texture.loadFromImage(image);
@@ -93,6 +94,20 @@ public:
 		rectangle.setOutlineColor(outlineColor);
 		rectangle.setOutlineThickness(4);
 		rectangle.setSize(Size(drag.x - origin.x, drag.y - origin.y));
+	}
+
+	void copyRect() {
+		copiedRect = sf::Image();
+		rectangle.setOutlineColor(sf::Color::Transparent);
+		copiedRect.create(rectangle.getSize().x, rectangle.getSize().y);
+		Position relative = rectangle.getPosition() - sprite.getPosition();
+		for (int x = 0; x < rectangle.getSize().x; x++) {
+			for (int y = 0; y < rectangle.getSize().y; y++) {
+				sf::Color pixel = image.getPixel(x + relative.x, y + relative.y);
+				copiedRect.setPixel(x, y, pixel);
+			}
+		}
+		copiedRect.saveToFile("copy.png");
 	}
 
 	void saveRect() {

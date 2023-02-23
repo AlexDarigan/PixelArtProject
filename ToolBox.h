@@ -8,6 +8,7 @@
 #include "SetOrigin.h"
 #include "DrawRect.h"
 #include "SaveRect.h"
+#include "CopyRect.h"
 
 class ToolBox {
 
@@ -25,6 +26,7 @@ class ToolBox {
 	DrawRect* drawRect;
 	SaveRect* saveRect;
 	DrawRect* drawOutline;
+	CopyRect* copyRect;
 
 
 	void setMouseCursorIcon(Tool tool) {
@@ -42,6 +44,7 @@ public:
 		drawRect = new DrawRect(pixelCanvas, true);
 		saveRect = new SaveRect(pixelCanvas);
 		drawOutline = new DrawRect(pixelCanvas, false);
+		copyRect = new CopyRect(pixelCanvas);
 	}
 
 	const enum Tool { Cursor, PaintBrush, Eraser, EyeDropper, Picker, Rectangle, MAX, };
@@ -72,6 +75,7 @@ public:
 		case Picker:
 			pixelCanvas->setOnPressed(setOrigin);
 			pixelCanvas->setOnMouseDragged(drawOutline);
+			pixelCanvas->setOnMouseReleased(copyRect);
 			break;
 		case Rectangle:
 			pixelCanvas->setOnPressed(setOrigin);

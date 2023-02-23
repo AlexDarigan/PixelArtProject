@@ -136,6 +136,7 @@
     <ClInclude Include="Button.h" />
     <ClInclude Include="Callback.h" />
     <ClInclude Include="CollisionShape.h" />
+    <ClInclude Include="CopyRect.h" />
     <ClInclude Include="DrawRect.h" />
     <ClInclude Include="ErasePixels.h" />
     <ClInclude Include="GameObject.h" />
