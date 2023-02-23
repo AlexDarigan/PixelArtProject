@@ -112,13 +112,11 @@ public:
 	}
 
 	void pasteRect() {
-		std::cout << "Pasting Rect" << std::endl;
 		if (copiedRect.getSize().x < 0 || copiedRect.getSize().y < 0) { return; }
-		std::cout << "Continue" << std::endl;
-
 		sf::RenderTexture render;
 		Position spritePos = getPosition();
-		Position rectPos = rectangle.getPosition() - getPosition();
+		Position copyPos = Position(App::getMousePosition()) - getPosition();
+		copyPos -= Size(copiedRect.getSize().x / 2, copiedRect.getSize().y / 2);
 
 		render.create(getSize().x, getSize().y);
 
@@ -128,16 +126,17 @@ public:
 		temp.setTexture(texture);
 
 		sprite.setPosition(0, 0);
-		temp.setPosition(0, 0);
-		rectangle.setPosition(rectPos.x, rectPos.y);
+		temp.setPosition(copyPos.x, copyPos.y);
+		//rectangle.setPosition(rectPos.x, rectPos.y);
 		render.draw(sprite);
 		render.draw(temp);
 		render.display();
 
 		image = render.getTexture().copyToImage();
 		sprite.setPosition(spritePos.x, spritePos.y);
-		rectangle.setFillColor(sf::Color::Transparent);
-		copiedRect.create(0, 0);
+		//temp.setPosition(rectPos.x, rectPos.y);
+		//rectangle.setFillColor(sf::Color::Transparent);
+		//copiedRect.create(0, 0);
 		image.saveToFile("test.png");
 		updateSprite();
 
