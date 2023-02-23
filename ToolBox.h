@@ -24,6 +24,7 @@ class ToolBox {
 	SetOrigin* setOrigin;
 	DrawRect* drawRect;
 	SaveRect* saveRect;
+	DrawRect* drawOutline;
 
 
 	void setMouseCursorIcon(Tool tool) {
@@ -38,8 +39,9 @@ public:
 		erasePixels = new ErasePixels(pixelCanvas);
 		sampleColor = new SampleColor(pixelCanvas);
 		setOrigin = new SetOrigin(pixelCanvas);
-		drawRect = new DrawRect(pixelCanvas);
+		drawRect = new DrawRect(pixelCanvas, true);
 		saveRect = new SaveRect(pixelCanvas);
+		drawOutline = new DrawRect(pixelCanvas, false);
 	}
 
 	const enum Tool { Cursor, PaintBrush, Eraser, EyeDropper, Picker, Rectangle, MAX, };
@@ -69,7 +71,7 @@ public:
 			break;
 		case Picker:
 			pixelCanvas->setOnPressed(setOrigin);
-			pixelCanvas->setOnMouseDragged(nullptr);
+			pixelCanvas->setOnMouseDragged(drawOutline);
 			break;
 		case Rectangle:
 			pixelCanvas->setOnPressed(setOrigin);

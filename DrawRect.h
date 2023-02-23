@@ -8,16 +8,25 @@
 class DrawRect : public Callback {
 
 	PixelCanvas* pixelCanvas;
+	bool filledRect;
 
 protected:
 
 	virtual void onCalled() {
-		pixelCanvas->drawRect();
+		sf::Color fillColor = filledRect ? pixelCanvas->getColor() : sf::Color::Transparent;
+		sf::Color outlineColor = filledRect ? sf::Color::Transparent : sf::Color::Black;
+		pixelCanvas->drawRect(outlineColor, fillColor);
 	}
 
 public:
 
-	DrawRect(PixelCanvas* pixelCanvas) {
+	const enum RectType {
+		TransparentOutlined,
+		BorderlessFilled,
+	};
+
+	DrawRect(PixelCanvas* pixelCanvas, bool filledRect) {
 		this->pixelCanvas = pixelCanvas;
+		this->filledRect = filledRect;
 	}
 };

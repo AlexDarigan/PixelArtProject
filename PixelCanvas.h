@@ -87,16 +87,18 @@ public:
 		updateSprite();
 	}
 
-	void drawRect() {
+	void drawRect(sf::Color outlineColor, sf::Color fillColor) {
 		Position drag = Position(App::getMousePosition());
-		rectangle.setFillColor(currentColor);
+		rectangle.setFillColor(fillColor);
+		rectangle.setOutlineColor(outlineColor);
+		rectangle.setOutlineThickness(4);
 		rectangle.setSize(Size(drag.x - origin.x, drag.y - origin.y));
 	}
 
 	void saveRect() {
 
 		// The render goes crazy if we don't work from 0, 0 so we grab our interested positions and 
-		// ..set the sprite to 0, 0 to avoid the shenanigans. Then after we draw, we set them back.
+		// ..set the sprite to 0, 0 to avoid the shenanigans. Then after we draw, we set them back.i
 		sf::RenderTexture render;
 		Position spritePos = getPosition();
 		Position rectPos = rectangle.getPosition() - getPosition();
@@ -134,6 +136,7 @@ public:
 
 	void setBrushSize(int size) { brushSize = size; }
 	int getBrushSize() { return brushSize; }
+	sf::Color getColor() { return currentColor; }
 	
 	virtual void setSize(Size size) { }
 	virtual void setPosition(Position position) { }
