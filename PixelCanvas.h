@@ -110,6 +110,35 @@ public:
 		copiedRect.saveToFile("copy.png");
 	}
 
+	void pasteRect() {
+		if (copiedRect.getSize().x < 0 || copiedRect.getSize().y < 0) { return; }
+		std::cout << "Pasting Rect" << std::endl;
+
+		sf::RenderTexture render;
+		Position spritePos = getPosition();
+		Position rectPos = rectangle.getPosition() - getPosition();
+
+		
+		render.create(getSize().x, getSize().y);
+
+		sf::Texture texture;
+		texture.loadFromImage(copiedRect);
+		rectangle.setTexture(&texture);
+
+		sprite.setPosition(0, 0);
+		rectangle.setPosition(rectPos.x, rectPos.y);
+		render.draw(sprite);
+		render.draw(rectangle);
+		render.display();
+
+		image = render.getTexture().copyToImage();
+		sprite.setPosition(spritePos.x, spritePos.y);
+		rectangle.setPosition(rectPos.x, rectPos.y);
+		rectangle.setFillColor(sf::Color::Transparent);
+		copiedRect.create(0, 0);
+		updateSprite();
+	}
+
 	void saveRect() {
 
 		// The render goes crazy if we don't work from 0, 0 so we grab our interested positions and 

@@ -141,6 +141,7 @@
     <ClInclude Include="ErasePixels.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="LoadImage.h" />
+    <ClInclude Include="PasteRect.h" />
     <ClInclude Include="SampleColor.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="App.h" />

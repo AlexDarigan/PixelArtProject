@@ -86,5 +86,8 @@
     <ClInclude Include="CopyRect.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="PasteRect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -9,6 +9,7 @@
 #include "DrawRect.h"
 #include "SaveRect.h"
 #include "CopyRect.h"
+#include "PasteRect.h"
 
 class ToolBox {
 
@@ -27,7 +28,7 @@ class ToolBox {
 	SaveRect* saveRect;
 	DrawRect* drawOutline;
 	CopyRect* copyRect;
-
+	PasteRect* pasteRect;
 
 	void setMouseCursorIcon(Tool tool) {
 		App::getInstance()->setCursor(getToolName(tool) + ".png");

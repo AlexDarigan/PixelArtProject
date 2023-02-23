@@ -13,6 +13,7 @@ class CollisionShape {
 	Callback* onLeftMouseButtonPressed = nullptr;
 	Callback* onMouseDragged = nullptr;
 	Callback* onMouseButtonReleased = nullptr;
+	Callback* onCtrlV = nullptr;
 
 	bool isLeftMouseButtonPressed(sf::Event& event, sf::RectangleShape shape) {
 		return
@@ -34,8 +35,12 @@ class CollisionShape {
 			shape.getGlobalBounds().contains(App::getMousePosition().x, App::getMousePosition().y);
 	}
 
-	bool isTextEntered(sf::Event& event) {
-
+	bool isCtrlVPressed(sf::Event& event, sf::RectangleShape shape) {
+		return
+			event.type == event.KeyPressed &&
+			event.key.control &&
+			event.key.code == sf::Keyboard::V &&
+			shape.getGlobalBounds().contains(App::getMousePosition().x, App::getMousePosition().y);
 	}
 
 	sf::RectangleShape getShape() {
@@ -58,6 +63,9 @@ protected:
 		else if (isMouseButtonReleased(event, bounds)) {
 			if (onMouseButtonReleased != nullptr) { onMouseButtonReleased->call(); }
 		}
+		else if (isCtrlVPressed(event, bounds)) {
+			std::cout << "Ctrl V" << std::endl;
+		}
 	}
 	
 public:
@@ -73,4 +81,5 @@ public:
 	void setOnMouseDragged(Callback* callback) { onMouseDragged = callback; }
 	void setOnMouseLeftButtonPressed(Callback* callback) { onLeftMouseButtonPressed = callback; }
 	void setOnMouseReleased(Callback* callback) { onMouseButtonReleased = callback; }
+	void setOnCtrlV(Callback* callback) { onCtrlV = callback;  }
 };
