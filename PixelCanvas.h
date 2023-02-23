@@ -120,25 +120,27 @@ public:
 		Position spritePos = getPosition();
 		Position rectPos = rectangle.getPosition() - getPosition();
 
-		
 		render.create(getSize().x, getSize().y);
 
+		sf::Sprite temp;
 		sf::Texture texture;
 		texture.loadFromImage(copiedRect);
-		rectangle.setTexture(&texture);
+		temp.setTexture(texture);
 
 		sprite.setPosition(0, 0);
+		temp.setPosition(0, 0);
 		rectangle.setPosition(rectPos.x, rectPos.y);
 		render.draw(sprite);
-		render.draw(rectangle);
+		render.draw(temp);
 		render.display();
 
 		image = render.getTexture().copyToImage();
 		sprite.setPosition(spritePos.x, spritePos.y);
-		rectangle.setPosition(rectPos.x, rectPos.y);
 		rectangle.setFillColor(sf::Color::Transparent);
 		copiedRect.create(0, 0);
+		image.saveToFile("test.png");
 		updateSprite();
+
 	}
 
 	void saveRect() {
