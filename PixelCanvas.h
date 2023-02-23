@@ -94,9 +94,12 @@ public:
 	}
 
 	void saveRect() {
+
+		// The render goes crazy if we don't work from 0, 0 so we grab our interested positions and 
+		// ..set the sprite to 0, 0 to avoid the shenanigans. Then after we draw, we set them back.
 		sf::RenderTexture render;
 		Position spritePos = getPosition();
-		Position rectPos = getPosition() - Size(rectangle.getPosition().x / 2, -(rectangle.getPosition().y / 2));
+		Position rectPos = rectangle.getPosition() - getPosition();
 		render.create(getSize().x, getSize().y);
 
 		sprite.setPosition(0, 0);
