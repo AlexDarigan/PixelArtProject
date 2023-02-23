@@ -46,6 +46,7 @@ public:
 		saveRect = new SaveRect(pixelCanvas);
 		drawOutline = new DrawRect(pixelCanvas, false);
 		copyRect = new CopyRect(pixelCanvas);
+		pasteRect = new PasteRect(pixelCanvas);
 	}
 
 	const enum Tool { Cursor, PaintBrush, Eraser, EyeDropper, Picker, Rectangle, MAX, };
@@ -77,6 +78,7 @@ public:
 			pixelCanvas->setOnPressed(setOrigin);
 			pixelCanvas->setOnMouseDragged(drawOutline);
 			pixelCanvas->setOnMouseReleased(copyRect);
+			pixelCanvas->setOnCtrlV(pasteRect);
 			break;
 		case Rectangle:
 			pixelCanvas->setOnPressed(setOrigin);

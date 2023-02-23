@@ -64,7 +64,7 @@ protected:
 			if (onMouseButtonReleased != nullptr) { onMouseButtonReleased->call(); }
 		}
 		else if (isCtrlVPressed(event, bounds)) {
-			std::cout << "Ctrl V" << std::endl;
+			onCtrlV->call();
 		}
 	}
 	

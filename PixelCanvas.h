@@ -53,6 +53,7 @@ public:
 	void setOnPressed(Callback* callback) { collider->setOnMouseLeftButtonPressed(callback); }
 	void setOnMouseDragged(Callback* callback) { collider->setOnMouseDragged(callback); }
 	void setOnMouseReleased(Callback* callback) { collider->setOnMouseReleased(callback); }
+	void setOnCtrlV(Callback* callback) { collider->setOnCtrlV(callback); }
 	void setColor(sf::Color color) { this->currentColor = color; }
 	void setPixels() {
 
@@ -111,8 +112,9 @@ public:
 	}
 
 	void pasteRect() {
-		if (copiedRect.getSize().x < 0 || copiedRect.getSize().y < 0) { return; }
 		std::cout << "Pasting Rect" << std::endl;
+		if (copiedRect.getSize().x < 0 || copiedRect.getSize().y < 0) { return; }
+		std::cout << "Continue" << std::endl;
 
 		sf::RenderTexture render;
 		Position spritePos = getPosition();
